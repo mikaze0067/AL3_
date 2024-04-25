@@ -39,10 +39,21 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+
+	//
+	Model* model_ = nullptr;
+
+	//
+	WorldTransform worldTransform_;
+	//
+	ViewProjection viewProjection_;
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	uint32_t textureHandle_ = 0;
 
 	/// <summary>
 	/// ゲームシーン用
