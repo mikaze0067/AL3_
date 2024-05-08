@@ -4,7 +4,10 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete model_; }
+GameScene::~GameScene() {
+	delete model_;
+	delete player_;
+}
 
 void GameScene::Initialize() {
 
@@ -13,17 +16,27 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	//
 	textureHandle_ = TextureManager::Load("mario,jpg");
-	//
+	//3Dモデルデータの生成
 	model_ = Model::Create();
-	//
+	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
-	//
+	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
+	//自キャラの更新
+	player_ = new Player();
+	//自キャラの初期化
+	player_->Initialize();
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	//自キャラの更新
+	player_->Update();
+}
 
 void GameScene::Draw() {
+
+	//自キャラの更新
+	player_->Draw();
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
