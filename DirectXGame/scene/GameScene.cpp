@@ -15,7 +15,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	//
-	textureHandle_ = TextureManager::Load("mario,jpg");
+	textureHandle_ = TextureManager::Load("mario.jpg");
 	//3Dモデルデータの生成
 	model_ = Model::Create();
 	//ワールドトランスフォームの初期化
@@ -25,18 +25,15 @@ void GameScene::Initialize() {
 	//自キャラの更新
 	player_ = new Player();
 	//自キャラの初期化
-	player_->Initialize();
+	player_->Initialize(model_, textureHandle_, &viewProjection_);
 }
-
+ 
 void GameScene::Update() {
 	//自キャラの更新
 	player_->Update();
 }
 
 void GameScene::Draw() {
-
-	//自キャラの更新
-	player_->Draw();
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -64,6 +61,9 @@ void GameScene::Draw() {
 	/// </summary>
 
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+
+	// 自キャラの更新
+	player_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

@@ -9,7 +9,9 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	/// <param name="model">モデル</param>
+	/// <param name="textureHandle">テクスチャハンドル</param>
+	void Initialize(Model* model, uint32_t textureHandle, ViewProjection* viewProjection);
 
 	/// <summary>
 	/// 毎フレーム処理
@@ -28,5 +30,7 @@ public:
 	Model* model_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+
+	ViewProjection* viewProjection_ = nullptr;
 
 };
