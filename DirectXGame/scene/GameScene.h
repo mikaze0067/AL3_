@@ -40,7 +40,6 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-
 	//3Dモデル
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
@@ -57,8 +56,6 @@ private: // メンバ変数
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
-	//
-
 
 	/// <summary>
 	/// ゲームシーン用

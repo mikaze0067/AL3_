@@ -12,7 +12,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle, ViewProjection* vi
 }
 
 void Player::Update() {
-	//
+	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 }
 
