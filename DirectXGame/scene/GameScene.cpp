@@ -19,9 +19,36 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	model_ = Model::Create();
+	//要素数
+	const uint32_t kNumBlockHorizontal = 20;
+	//ブロック1個分の横幅
+	const float kBlockWidth = 2.0f;
+	//要素数を変更する
+	worldTransformBlocks_.resize(kNumBlockHorizontal);
+
+	//キューブの生成
+	for (uint32_t i = 0; i < kNumBlockHorizontal; ++i) {
+
+		worldTransformBlocks_[i] = new WorldTransform();
+		worldTransformBlocks_[i]->Initialize();
+		worldTransformBlocks_[i]->translation_.x = kBlockWidth * 1;
+		worldTransformBlocks_[i]->translation_.y = 0.0f;
+	}
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	//ブロックの更新
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+
+		//アフィン変換
+		//worldTransformBlockWidth->UpdateMatrix();
+
+		worldTransformBlock->matWorld_;//=アフィン変換
+		
+		//定数バッファに転送する
+		worldTransformBlock->TransferMatrix();
+	}
+}
 
 void GameScene::Draw() {
 
@@ -49,6 +76,11 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	//ブロックの描画
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+		modelBlock_->Draw(*worldTransformBlock, viewProjection_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
