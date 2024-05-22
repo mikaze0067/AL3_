@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include <Affine.h>
 
 GameScene::GameScene() {}
 
@@ -40,10 +41,11 @@ void GameScene::Update() {
 	//ブロックの更新
 	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
 
-		//アフィン変換
-		//worldTransformBlockWidth->UpdateMatrix();
+		worldTransformBlock->scale_;
+		worldTransformBlock->rotation_;
+		worldTransformBlock->translation_;
 
-		worldTransformBlock->matWorld_;//=アフィン変換
+		worldTransformBlock->matWorld_;
 		
 		//定数バッファに転送する
 		worldTransformBlock->TransferMatrix();
