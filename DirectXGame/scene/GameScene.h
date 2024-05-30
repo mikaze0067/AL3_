@@ -1,18 +1,21 @@
 #pragma once
 
 #include "Audio.h"
+#include "DebugCamera.h"
 #include "DirectXCommon.h"
 #include "Input.h"
 #include "Model.h"
+#include "Player.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include<vector>
 
-/// <summary>
-/// ゲームシーン
-/// </summary>
-class GameScene {
+#include <vector>
+
+    /// <summary>
+    /// ゲームシーン
+    /// </summary>
+    class GameScene {
 
 public: // メンバ関数
 	/// <summary>
@@ -40,11 +43,6 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-	//3Dモデル
-	Model* model_ = nullptr;
-
-	std::vector<WorldTransform*> worldTransformBlocks_;
-
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -53,4 +51,24 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	// テクスチャハンドル
+	uint32_t textureHandle_ = 0;
+	// 3Dモデル
+	Model* model_ = nullptr;
+	Model* modelBlock_ = nullptr;
+	// ワールドトランスフォーム
+	WorldTransform worldTransform_;
+	// ビュープロジェクション
+	ViewProjection viewProjection_;
+
+	// 自キャラ
+	Player* player_ = nullptr;
+
+	// 縦横ブロック配列
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+
+	// デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
+	// デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
 };
