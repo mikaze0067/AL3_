@@ -9,13 +9,15 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "DebugCamera.h"
+#include "Skydome.h"
 
 #include <vector>
 
-    /// <summary>
-    /// ゲームシーン
-    /// </summary>
-    class GameScene {
+/// <summary>
+/// ゲームシーン
+/// </summary>
+class GameScene {
 
 public: // メンバ関数
 	/// <summary>
@@ -71,4 +73,9 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 	// デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+
+	// 天球
+	Skydome* skydome_ = nullptr;
+	// 3Dモデル
+	Model* modelSkydome_ = nullptr;
 };

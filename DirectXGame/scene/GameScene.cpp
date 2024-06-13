@@ -17,6 +17,8 @@ GameScene::~GameScene() {
 	worldTransformBlocks_.clear();
 
 	delete debugCamera_;
+
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -39,6 +41,13 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	// 自キャラの初期化
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
+
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球3Dモデルの生成
+	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
 	// 要素数
 	const uint32_t kNumBlockVirtical = 10;
@@ -98,6 +107,9 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 
+	// 天球の更新
+	skydome_->Update();
+
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
@@ -105,7 +117,11 @@ void GameScene::Update() {
 				continue;
 
 			// アフィン変換行列の作成
-			worldTransformBlockYoko->UpdateMatrix();
+			//(MakeAffineMatrix：自分で作った数学系関数)
+			worldTransformBlockYoko->matWorld_ = MakeAffineMatrix(worldTransformBlockYoko->scale_, worldTransformBlockYoko->rotation_, worldTransformBlockYoko->translation_);
+
+			// 定数バッファに転送
+			worldTransformBlockYoko->TransferMatrix();
 		}
 	}
 }
@@ -140,6 +156,9 @@ void GameScene::Draw() {
 	//	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	// 自キャラの描画
 	//	player_->Draw();
+
+	// 天球の描画
+	skydome_->Draw();
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
