@@ -1,6 +1,5 @@
 #include <Affine.h>
 
-
 Matrix4x4 Multiply(Matrix4x4 matrix1, Matrix4x4 matrix2) {
 	Matrix4x4 result = {};
 	for (int i = 0; i < 4; i++) {
@@ -13,31 +12,66 @@ Matrix4x4 Multiply(Matrix4x4 matrix1, Matrix4x4 matrix2) {
 	return result;
 }
 
-Matrix4x4 AffineMatrix(const Vector3& scale, const Vector3& rot, const Vector3& translate) {
+// 拡大縮小行列
+Matrix4x4 MakeScaleMatrix(const Vector3& scale) {
+	Matrix4x4 ans = {0};
+	ans.m[0][0] = scale.x;
+	ans.m[1][1] = scale.y;
+	ans.m[2][2] = scale.z;
+	ans.m[3][3] = 1;
+	return ans;
+}
 
-	Matrix4x4 ScallMat, RotateMat, RotateMatX, RotateMatY, RotateMatZ, TranslateMat, returnMat;
+// 平行移動行列
+Matrix4x4 MakeTranslateMatrix(const Vector3& translate) {
+	Matrix4x4 ans = {0};
+	ans.m[0][0] = 1;
+	ans.m[1][1] = 1;
+	ans.m[2][2] = 1;
+	ans.m[3][0] = translate.x;
+	ans.m[3][1] = translate.y;
+	ans.m[3][2] = translate.z;
+	ans.m[3][3] = 1;
+	return ans;
+}
 
-	// スケール行列作成
-	ScallMat = {scale.x, 0, 0, 0, 0, scale.y, 0, 0, 0, 0, scale.z, 0, 0, 0, 0, 1};
+// X
+Matrix4x4 MakeRotateXMatrix(float radian) {
+	Matrix4x4 ans = {0};
+	ans.m[0][0] = 1;
+	ans.m[1][1] = cosf(radian);
+	ans.m[1][2] = sinf(radian);
+	ans.m[2][1] = -sinf(radian);
+	ans.m[2][2] = cosf(radian);
+	ans.m[3][3] = 1;
+	return ans;
+}
+// Y
+Matrix4x4 MakeRotateYMatrix(float radian) {
+	Matrix4x4 ans = {0};
+	ans.m[0][0] = cosf(radian);
+	ans.m[0][2] = -sinf(radian);
+	ans.m[1][1] = 1;
+	ans.m[2][0] = sinf(radian);
+	ans.m[2][2] = cosf(radian);
+	ans.m[3][3] = 1;
+	return ans;
+}
+// Z
+Matrix4x4 MakeRotateZMatrix(float radian) {
+	Matrix4x4 ans = {0};
+	ans.m[0][0] = cosf(radian);
+	ans.m[0][1] = sinf(radian);
+	ans.m[1][0] = -sinf(radian);
+	ans.m[1][1] = cosf(radian);
+	ans.m[2][2] = 1;
+	ans.m[3][3] = 1;
+	return ans;
+}
 
-	// XYZ回転行列作成
-	RotateMatX = {1, 0, 0, 0, 0, cosf(rot.x), sinf(rot.x), 0, 0, -sinf(rot.x), cosf(rot.x), 0, 0, 0, 0, 1};
-
-	RotateMatY = {cosf(rot.y), 0, -sinf(rot.y), 0, 0, 1, 0, 0, sinf(rot.y), 0, cosf(rot.y), 0, 0, 0, 0, 1};
-
-	RotateMatZ = {cosf(rot.z), sinf(rot.z), 0, 0, -sinf(rot.z), cosf(rot.z), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
-
-	// XYZ回転行列の合成(Z*X*Y)
-	RotateMat = Multiply(RotateMatZ, RotateMatX);
-	// ↑の結果＊Y軸回転
-	RotateMat = Multiply(RotateMat, RotateMatY);
-
-	// 平行移動行列作成
-	TranslateMat = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, translate.x, translate.y, translate.z, 1};
-
-	// スケール＊回転＊平行移動をワールド変換行列に
-	returnMat = Multiply(ScallMat, RotateMat);
-	returnMat = Multiply(returnMat, TranslateMat);
-
-	return returnMat;
+// 3次元アフィン変換行列
+Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translation) {
+	Matrix4x4 ans;
+	ans = Multiply(Multiply(MakeScaleMatrix(scale), Multiply(Multiply(MakeRotateXMatrix(rotate.x), MakeRotateYMatrix(rotate.y)), MakeRotateZMatrix(rotate.z))), MakeTranslateMatrix(translation));
+	return ans;
 }
