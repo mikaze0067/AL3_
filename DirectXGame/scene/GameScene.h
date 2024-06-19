@@ -11,6 +11,7 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 #include "Skydome.h"
+#include <MapChipField.h>
 
 #include <vector>
 
@@ -45,6 +46,8 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	void GenerateBlocks();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -68,6 +71,9 @@ private: // メンバ変数
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+
+	//マップチップフィールド
+	MapChipField* mapChipField_;
 
 	// デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
