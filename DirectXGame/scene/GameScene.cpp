@@ -7,6 +7,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete model_;
+	delete player_;
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -31,6 +32,7 @@ void GameScene::Initialize() {
 
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("./Resources/cube/cube.jpg");
+	playertextureHandle_=TextureManager::Load("./Resources/player/player.png");
 	// 3Dモデルの生成
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
@@ -38,11 +40,6 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
-
-	// 自キャラの生成
-	player_ = new Player();
-	// 自キャラの初期化
-	player_->Initialize(model_, textureHandle_, &viewProjection_);
 
 	// 天球の生成
 	skydome_ = new Skydome();
@@ -53,6 +50,15 @@ void GameScene::Initialize() {
 
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("./Resources/map.csv");
+
+	// 座標をマップチップ番号で指定
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 15);
+
+	// 自キャラの生成
+	player_ = new Player();
+	// 自キャラの初期化
+	player_->Initialize(model_, &viewProjection_, playerPosition);
+
 
 	GenerateBlocks();
 
@@ -133,9 +139,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// 3Dモデル描画
-	//	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-	// 自キャラの描画
-	//	player_->Draw();
+	model_->Draw(worldTransform_, viewProjection_, playertextureHandle_);
+	 //自キャラの描画
+	player_->Draw();
 
 	// 天球の描画
 	skydome_->Draw();

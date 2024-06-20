@@ -58,6 +58,8 @@ private: // メンバ変数
 	/// </summary>
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	uint32_t playertextureHandle_ = 0;
+
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
@@ -66,14 +68,16 @@ private: // メンバ変数
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
 
+	// マップチップフィールド
+	MapChipField* mapChipField_;
+
 	// 自キャラ
 	Player* player_ = nullptr;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 
-	//マップチップフィールド
-	MapChipField* mapChipField_;
+	
 
 	// デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
