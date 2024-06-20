@@ -59,7 +59,6 @@ void GameScene::Initialize() {
 	// 自キャラの初期化
 	player_->Initialize(model_, &viewProjection_, playerPosition);
 
-
 	GenerateBlocks();
 
 	// デバッグカメラの生成
