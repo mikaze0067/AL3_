@@ -36,6 +36,8 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
+	//デバッグカメラの生成
+	debugCamera_ = new DebugCamera(1280, 720);
 
 	// 自キャラの生成
 	player_ = new Player();
