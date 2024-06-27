@@ -34,12 +34,15 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("./Resources/cube/cube.jpg");
 	playertextureHandle_=TextureManager::Load("./Resources/player/player.png");
 	// 3Dモデルの生成
-	model_ = Model::Create();
+	model_ = Model::CreateFromOBJ("player", true);
 	modelBlock_ = Model::Create();
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
+
+	mapChipField_ = new MapChipField;
+	mapChipField_->LoadMapChipCsv("./Resources/map.csv");
 
 	// 座標をマップチップ番号で指定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 15);
@@ -52,12 +55,11 @@ void GameScene::Initialize() {
 	// 天球の生成
 	skydome_ = new Skydome();
 	// 天球3Dモデルの生成
-	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
+	modelSkydome_ = Model::CreateFromOBJ("sky", true);
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
-	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("./Resources/map.csv");
+	
 
 	
 
@@ -140,7 +142,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// 3Dモデル描画
-	model_->Draw(worldTransform_, viewProjection_, playertextureHandle_);
+	//model_->Draw(worldTransform_, viewProjection_, playertextureHandle_);
 	 //自キャラの描画
 	player_->Draw();
 
