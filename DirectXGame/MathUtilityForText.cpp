@@ -1,12 +1,20 @@
 #include "MathUtilityForText.h"
 #include <numbers>
 
+// 代入演算子オーバーロード
 // Vector3の足算
 Vector3& operator+=(Vector3& lhv, const Vector3& rhv) {
 	lhv.x += rhv.x;
 	lhv.y += rhv.y;
 	lhv.z += rhv.z;
 	return lhv;
+}
+
+// 2項演算子オーバーロード
+// Vector3の足し算
+const Vector3 operator+(const Vector3& v1, const Vector3& v2) {
+	Vector3 temp(v1);
+	return temp += v2;
 }
 
 float EaseInOut(float x1, float x2, float t) { 
@@ -29,4 +37,4 @@ Matrix4x4 PlayerAffineMatrix(const Vector3& scale, const Vector3& rotate, const 
 	Matrix4x4 ansMat = Multiply(MakeRotateYMatrix(rotate.y), MakeTranslateMatrix(translate));
 
 	return ansMat;
-} 
+}

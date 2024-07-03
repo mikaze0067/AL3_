@@ -32,9 +32,7 @@ void GameScene::Initialize() {
 
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("./Resources/cube/cube.jpg");
-	playertextureHandle_=TextureManager::Load("./Resources/player/player.png");
 	// 3Dモデルの生成
-	model_ = Model::CreateFromOBJ("player", true);
 	modelBlock_ = Model::Create();
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
@@ -49,6 +47,8 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
+	model_ = Model::CreateFromOBJ("player", true);
+
 	// 自キャラの初期化
 	player_->Initialize(model_, &viewProjection_, playerPosition);
 
@@ -59,10 +59,19 @@ void GameScene::Initialize() {
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
+	//カメラコントローラの生成
+	cameracontroller_ = new CameraController();
+	//カメラコントローラの初期化
+	cameracontroller_->Initialize();
+	//追従対象をセット
+	cameracontroller_->SetTarget(player_);
+	//リセット
+	cameracontroller_->Reset();
+	//
+	CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
+	//
+	cameracontroller_->SetMovableArea(cameraArea);
 	
-
-	
-
 	GenerateBlocks();
 
 	// デバッグカメラの生成
@@ -89,8 +98,10 @@ void GameScene::Update() {
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 	} else {
+		viewProjection_.matView = cameracontroller_->GetViewProjection().matView;
+		viewProjection_.matProjection = cameracontroller_->GetViewProjection().matProjection;
 		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		viewProjection_.TransferMatrix();
 	}
 
 	// 自キャラの更新
@@ -98,6 +109,9 @@ void GameScene::Update() {
 
 	// 天球の更新
 	skydome_->Update();
+
+	// カメラコントローラの更新
+	cameracontroller_->Update();
 
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {

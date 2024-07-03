@@ -30,6 +30,8 @@ public:
 	/// </summary>
 	void Draw();
 
+	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
+
 	private:
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -67,4 +69,5 @@ public:
 	static inline const float kLimitRunSpeed = 0.5f;
 	
 	LRDirection lrDirection_ = LRDirection::kRight;
+
 };

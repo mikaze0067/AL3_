@@ -12,8 +12,8 @@
 #include "DebugCamera.h"
 #include "Skydome.h"
 #include <MapChipField.h>
-
 #include <vector>
+#include <CameraController.h>
 
 /// <summary>
 /// ゲームシーン
@@ -58,7 +58,6 @@ private: // メンバ変数
 	/// </summary>
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
-	uint32_t playertextureHandle_ = 0;
 
 	// 3Dモデル
 	Model* model_ = nullptr;
@@ -86,4 +85,7 @@ private: // メンバ変数
 	Skydome* skydome_ = nullptr;
 	// 3Dモデル
 	Model* modelSkydome_ = nullptr;
+
+	//カメラコントローラ
+	CameraController* cameracontroller_ = nullptr;
 };
