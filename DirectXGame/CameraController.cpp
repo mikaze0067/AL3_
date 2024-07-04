@@ -20,7 +20,7 @@ void CameraController::Update() {
 	//座標補間によりゆったり追従
 	viewProjection_.translation_ = Leap(viewProjection_.translation_, cameraTarget, kInterpolationRate);
 
-	//
+	//追従対象が画面外に出ないように補正
 	viewProjection_.translation_.x = std::max(viewProjection_.translation_.x, targetWorldTransform.translation_.x + margin.left);
 	viewProjection_.translation_.x = std::min(viewProjection_.translation_.x, targetWorldTransform.translation_.x + margin.right);
 	viewProjection_.translation_.y = std::max(viewProjection_.translation_.y, targetWorldTransform.translation_.y + margin.bottom);
