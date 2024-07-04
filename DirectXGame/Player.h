@@ -32,6 +32,8 @@ public:
 
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
+	const Vector3& GetVelocity() const { return velocity_; }
+
 	private:
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
