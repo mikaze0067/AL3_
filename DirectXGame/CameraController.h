@@ -47,9 +47,9 @@ public: // メンバ関数
 	Rect movableArea_ = {0, 100, 0, 100};
 
 	//座標補間割合
-	static inline const float kInterpolationRate = 0.25f;
+	static inline const float kInterpolationRate = 0.5f;
 	//速度掛け率
-	static inline const float kVelocityBias = 10;
+	static inline const float kVelocityBias = 20;
 	//追従対象の各方向へのカメラ移動範囲
 	static inline const Rect margin = {-50, 50, -50, 50};
 	

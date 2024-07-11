@@ -32,18 +32,20 @@ void GameScene::Initialize() {
 
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("./Resources/cube/cube.jpg");
+
 	// 3Dモデルの生成
-	modelBlock_ = Model::Create();
+	modelBlock_ = Model::CreateFromOBJ("block", true);
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
+	//マップチップフィールドの生成と初期化
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("./Resources/map.csv");
 
 	// 座標をマップチップ番号で指定
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 15);
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 1);
 
 	// 自キャラの生成
 	player_ = new Player();
@@ -51,6 +53,8 @@ void GameScene::Initialize() {
 
 	// 自キャラの初期化
 	player_->Initialize(model_, &viewProjection_, playerPosition);
+
+	player_->SetMapChipField(mapChipField_);
 
 	// 天球の生成
 	skydome_ = new Skydome();
