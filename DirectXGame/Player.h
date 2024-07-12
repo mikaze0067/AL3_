@@ -48,9 +48,9 @@ public:
 	void ChecMapCollision(CollisionMapInfo& info);
 
 	void ChecMapCollisionUp(CollisionMapInfo& info);
-	/*void ChecMapCollisionDown(CollisionMapInfo& info);
+	void ChecMapCollisionDown(CollisionMapInfo& info);
 	void ChecMapCollisionRight(CollisionMapInfo& info);
-	void ChecMapCollisionLeft(CollisionMapInfo& info);*/
+	void ChecMapCollisionLeft(CollisionMapInfo& info);
 
 	//角
 	enum Corner {
@@ -65,6 +65,8 @@ public:
 	void CheckMapMove(const CollisionMapInfo& info);
 
 	void CheckMapCelling(const CollisionMapInfo& info);
+
+	void CheckMapLanding(const CollisionMapInfo& info);
 
 	void AnimateTurn();
 
@@ -93,6 +95,9 @@ public:
 	static inline const float kLimitFallSpeed = 0.2f;
 	//ジャンプ初速（上方向）
 	static inline const float kJumpAcceleration = 0.6f;
+	//着地時の速度減衰率
+	static inline const float kAttenuationLanding = 0.5f;
+
 	// 左右
 	enum class LRDirection {
 		kRight,
