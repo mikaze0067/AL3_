@@ -221,19 +221,16 @@ void Player::CheckMapCelling(const CollisionMapInfo& info) {
 }
 
 void Player::AnimateTurn() {
-	if (Input::GetInstance()->PushKey(DIK_RIGHT) || Input::GetInstance()->PushKey(DIK_LEFT)) {
-		// 旋回制御
-		{
-			if (turnTimer_ > 0.0f) {
-				turnTimer_ -= 1.0f / 60.0f;
+	// 旋回制御
+	if (turnTimer_ > 0.0f) {
+		turnTimer_ -= 1.0f / 60.0f;
 
-				// 左右の自キャラ角度テーブル
-				float destinationRotationYtable[] = {std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> * 3.0f / 2.0f};
-				// 状態に応じた角度を取得する
-				float destinationRotationY = destinationRotationYtable[static_cast<uint32_t>(lrDirection_)];
-				// 自キャラの角度を設定する
-				worldTransform_.rotation_.y = EaseInOut(destinationRotationY, turnFirstRotationY_, turnTimer_ / kTimeTurn);
-			}
-		}
+		// 左右の自キャラ角度テーブル
+		float destinationRotationYtable[] = {std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> * 3.0f / 2.0f};
+		// 状態に応じた角度を取得する
+		float destinationRotationY = destinationRotationYtable[static_cast<uint32_t>(lrDirection_)];
+		// 自キャラの角度を設定する
+		worldTransform_.rotation_.y = EaseInOut(destinationRotationY, turnFirstRotationY_, turnTimer_ / kTimeTurn);
 	}
-	}
+}
+	
