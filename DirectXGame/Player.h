@@ -49,8 +49,8 @@ public:
 
 	void ChecMapCollisionUp(CollisionMapInfo& info);
 	void ChecMapCollisionDown(CollisionMapInfo& info);
-	void ChecMapCollisionRight(CollisionMapInfo& info);
-	void ChecMapCollisionLeft(CollisionMapInfo& info);
+	/*void ChecMapCollisionRight(CollisionMapInfo& info);
+	void ChecMapCollisionLeft(CollisionMapInfo& info);*/
 
 	//角
 	enum Corner {
@@ -69,6 +69,8 @@ public:
 	void CheckMapLanding(const CollisionMapInfo& info);
 
 	void AnimateTurn();
+
+	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
 	private:
 	// ワールドトランスフォーム
@@ -117,7 +119,7 @@ public:
 	
 	LRDirection lrDirection_ = LRDirection::kRight;
 
-	Vector3 CornerPosition(const Vector3& center, Corner corner);
+	
 
 	static inline const float kBlank = 1.0f;
 
