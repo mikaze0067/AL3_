@@ -325,7 +325,6 @@ void Player::CheckMapLanding(const CollisionMapInfo& info) {
 }
 
 void Player::AnimateTurn() {
-	if (Input::GetInstance()->PushKey(DIK_RIGHT) || Input::GetInstance()->PushKey(DIK_LEFT)) {
 		// 旋回制御
 		{
 			if (turnTimer_ > 0.0f) {
@@ -339,5 +338,4 @@ void Player::AnimateTurn() {
 				worldTransform_.rotation_.y = EaseInOut(destinationRotationY, turnFirstRotationY_, turnTimer_ / kTimeTurn);
 			}
 		}
-	}
 	}
