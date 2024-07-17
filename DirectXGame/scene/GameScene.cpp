@@ -58,9 +58,6 @@ void GameScene::Update() {
 		audio_->StopWave(voiceHandle_);
 	}
 
-	ImGui::Begin("Debug1");
-	ImGui::Text(" OH MY GOD %d.%d.%d", 2, 3, 4);
-	ImGui::End();
 	//デバッグカメラの更新
 	debugCamera_->Update();
 }
