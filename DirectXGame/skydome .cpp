@@ -7,7 +7,7 @@ void Skydome::Initialize(Model *model, ViewProjection* viewProjection) {
 	viewProjection_ = viewProjection;
 }
 
-void Skydome::Update() {}
+void Skydome::Update() { worldTransform_.UpdateMatrix(); }
 
 void Skydome::Draw() {
 	// 3Dモデル描画

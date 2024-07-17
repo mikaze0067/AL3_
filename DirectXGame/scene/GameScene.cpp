@@ -18,6 +18,7 @@ GameScene::~GameScene() {
 
 	delete debugCamera_;
 
+	delete skydome_;
 	delete modelSkydome_;
 }
 
