@@ -45,7 +45,7 @@ void GameScene::Initialize() {
 	mapChipField_->LoadMapChipCsv("./Resources/map.csv");
 
 	// 座標をマップチップ番号で指定
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 1);
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 10);
 
 	// 自キャラの生成
 	player_ = new Player();

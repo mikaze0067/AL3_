@@ -36,21 +36,11 @@ public:
 
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
-	struct CollisionMapInfo {
-		bool ceiling = false; //天井
-		bool landing = false; //着陸
-		bool hitWall = false; //壁
-		Vector3 move;
-	};
+	
 
 	void inputMove();
 
-	void ChecMapCollision(CollisionMapInfo& info);
-
-	void ChecMapCollisionUp(CollisionMapInfo& info);
-	void ChecMapCollisionDown(CollisionMapInfo& info);
-	/*void ChecMapCollisionRight(CollisionMapInfo& info);
-	void ChecMapCollisionLeft(CollisionMapInfo& info);*/
+	
 
 	//角
 	enum Corner {
@@ -62,15 +52,12 @@ public:
 		kNumCorner    //要素数
 	};
 
-	void CheckMapMove(const CollisionMapInfo& info);
-
-	void CheckMapCelling(const CollisionMapInfo& info);
-
-	void CheckMapLanding(const CollisionMapInfo& info);
+	
 
 	void AnimateTurn();
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
+
 
 	private:
 	// ワールドトランスフォーム
@@ -92,19 +79,44 @@ public:
 	// 接地状態フラグ
 	bool onGround_ = true;
 	//重力加速度（下方向）
-	static inline const float kGravityAccleration = 0.09f;
+	static inline const float kGravityAccleration = 0.098f;
 	//最大落下速度
-	static inline const float kLimitFallSpeed = 0.2f;
+	static inline const float kLimitFallSpeed = 0.1f;
 	//ジャンプ初速（上方向）
 	static inline const float kJumpAcceleration = 0.6f;
 	//着地時の速度減衰率
-	static inline const float kAttenuationLanding = 0.5f;
+	static inline const float kAttenuationLanding = 0.01f;
 
 	// 左右
 	enum class LRDirection {
 		kRight,
 		kLeft,
 	};
+
+	struct CollisionMapInfo {
+		bool ceiling = false; // 天井
+		bool landing = false; // 着陸
+		bool hitWall = false; // 壁
+		Vector3 move;
+	};
+
+	void ChecMapCollision(CollisionMapInfo& info);
+
+	void ChecMapCollisionUp(CollisionMapInfo& info);
+	void ChecMapCollisionDown(CollisionMapInfo& info);
+	void ChecMapCollisionRight(CollisionMapInfo& info);
+	void ChecMapCollisionLeft(CollisionMapInfo& info);
+
+	void CheckMapMove(const CollisionMapInfo& info);
+
+	void CheckMapCelling(const CollisionMapInfo& info);
+
+	void CheckMapLanding(const CollisionMapInfo& info);
+	
+	void CheckMapHItWall(const CollisionMapInfo& info);
+
+	static inline const float kAttenuationWall = 0.2f;
+
 
 	//旋回開始時の角度
 	float turnFirstRotationY_ = 0.0f;
@@ -119,7 +131,7 @@ public:
 	
 	LRDirection lrDirection_ = LRDirection::kRight;
 
-	
+	static inline const float kGroundSearchHeight = 0.2f;
 
 	static inline const float kBlank = 1.0f;
 
