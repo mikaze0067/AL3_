@@ -1,4 +1,3 @@
-#pragma once
 #include <ViewProjection.h>
 
 class Player;
@@ -47,10 +46,9 @@ public: // メンバ関数
 	Rect movableArea_ = {0, 100, 0, 100};
 
 	//座標補間割合
-	static inline const float kInterpolationRate = 0.5f;
+	static inline const float kInterpolationRate = 0.1f;
 	//速度掛け率
-	static inline const float kVelocityBias = 20;
+	static inline const float kVelocityBias = 30.0f;
 	//追従対象の各方向へのカメラ移動範囲
-	static inline const Rect margin = {-50, 50, -50, 50};
-	
+	static inline const Rect margin = {-9.0f, 9.0f, -5.0f, 5.0f};
 };

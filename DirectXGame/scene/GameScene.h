@@ -13,7 +13,7 @@
 #include "Skydome.h"
 #include <MapChipField.h>
 #include <vector>
-#include <CameraController.h>
+#include "CameraController.h"
 
 /// <summary>
 /// ゲームシーン
@@ -87,5 +87,5 @@ private: // メンバ変数
 	Model* modelSkydome_ = nullptr;
 
 	//カメラコントローラ
-	CameraController* cameracontroller_ = nullptr;
+	CameraController* cameraController_ = nullptr;
 };

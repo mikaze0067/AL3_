@@ -22,6 +22,8 @@ GameScene::~GameScene() {
 	delete modelSkydome_;
 
 	delete mapChipField_;
+
+	delete cameraController_;
 }
 
 void GameScene::Initialize() {
@@ -59,22 +61,22 @@ void GameScene::Initialize() {
 	// 天球の生成
 	skydome_ = new Skydome();
 	// 天球3Dモデルの生成
-	modelSkydome_ = Model::CreateFromOBJ("sky", true);
+	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
 	//カメラコントローラの生成
-	cameracontroller_ = new CameraController();
+	cameraController_ = new CameraController();
 	//カメラコントローラの初期化
-	cameracontroller_->Initialize();
+	cameraController_->Initialize();
 	//追従対象をセット
-	cameracontroller_->SetTarget(player_);
+	cameraController_->SetTarget(player_);
 	//リセット
-	cameracontroller_->Reset();
+	cameraController_->Reset();
 	//
 	CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
 	//
-	cameracontroller_->SetMovableArea(cameraArea);
+	cameraController_->SetMovableArea(cameraArea);
 	
 	GenerateBlocks();
 
@@ -102,8 +104,8 @@ void GameScene::Update() {
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 	} else {
-		viewProjection_.matView = cameracontroller_->GetViewProjection().matView;
-		viewProjection_.matProjection = cameracontroller_->GetViewProjection().matProjection;
+		viewProjection_.matView = cameraController_->GetViewProjection().matView;
+		viewProjection_.matProjection = cameraController_->GetViewProjection().matProjection;
 		// ビュープロジェクション行列の更新と転送
 		viewProjection_.TransferMatrix();
 	}
@@ -115,7 +117,7 @@ void GameScene::Update() {
 	skydome_->Update();
 
 	// カメラコントローラの更新
-	cameracontroller_->Update();
+	cameraController_->Update();
 
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
