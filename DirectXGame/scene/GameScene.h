@@ -14,6 +14,8 @@
 #include <MapChipField.h>
 #include <vector>
 #include "CameraController.h"
+#include "Enemy.h"
+
 
 /// <summary>
 /// ゲームシーン
@@ -62,6 +64,8 @@ private: // メンバ変数
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
+	Model* modelEnemy_ = nullptr;
+
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
@@ -72,6 +76,8 @@ private: // メンバ変数
 
 	// 自キャラ
 	Player* player_ = nullptr;
+	//敵キャラ
+	Enemy* enemy_ = nullptr;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
