@@ -5,8 +5,10 @@
 #include <Input.h>
 #include <MathUtilityForText.h>
 #include <algorithm>
+#include <AABB.h>
 
 class MapChipField;
+class Enemy;
 
 /// <summary>
 /// 自キャラ
@@ -52,6 +54,14 @@ public:
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
 	const Vector3& GetVelocity() const { return velocity_; }
+
+	Vector3 GetworldPosition();
+
+	// AABBを取得
+	AABB GetAABB();
+
+	//衝突応答
+	void OnCollision(const Enemy* enemy);
 
 	private:
 
@@ -121,4 +131,5 @@ public:
 	void AnimateTurn();
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
+
 };

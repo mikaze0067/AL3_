@@ -48,6 +48,8 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	void CheckAllCollisions();
+
 	void GenerateBlocks();
 
 private: // メンバ変数
@@ -77,7 +79,8 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//敵キャラ
-	Enemy* enemy_ = nullptr;
+	//Enemy* enemy_ = nullptr;
+	std::list<Enemy*> enemies_;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
