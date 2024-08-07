@@ -15,6 +15,8 @@
 #include <vector>
 #include "CameraController.h"
 #include "Enemy.h"
+#include "DeathParticles.h"
+
 
 
 /// <summary>
@@ -67,6 +69,7 @@ private: // メンバ変数
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
 	Model* modelEnemy_ = nullptr;
+	Model* modelDeathParticles = nullptr;
 
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -81,6 +84,8 @@ private: // メンバ変数
 	//敵キャラ
 	//Enemy* enemy_ = nullptr;
 	std::list<Enemy*> enemies_;
+
+	DeathParticles* deathParticles_ = nullptr;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;

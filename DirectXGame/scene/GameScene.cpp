@@ -14,13 +14,11 @@ GameScene::~GameScene() {
 	}
 	enemies_.clear();
 
-
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 			delete worldTransformBlock;
 		}
 	}
-
 	worldTransformBlocks_.clear();
 
 	delete debugCamera_;
@@ -32,6 +30,12 @@ GameScene::~GameScene() {
 	delete cameraController_;
 
 	delete modelEnemy_;
+
+	if (deathParticles_) {
+		delete deathParticles_;
+	}
+
+	delete modelDeathParticles;
 }
 
 void GameScene::Initialize() {
@@ -55,7 +59,7 @@ void GameScene::Initialize() {
 	mapChipField_->LoadMapChipCsv("./Resources/map.csv");
 
 	// 座標をマップチップ番号で指定
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 10);
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(2, 15);
 	// 座標をマップチップ番号で指定
 	//Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
 
@@ -73,7 +77,7 @@ void GameScene::Initialize() {
 	for (int32_t i = 0; i < 2; ++i) {
 		modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 		Enemy* newEnemy = new Enemy();
-		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
+		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(15, 18);
 		newEnemy->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
 
 		enemies_.push_back(newEnemy);
@@ -83,6 +87,15 @@ void GameScene::Initialize() {
 	/*enemy_->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
 	enemy_->SetMapChipField(mapChipField_);*/
 
+	player_->Update();
+	Vector3 position = player_->GetworldPosition();
+
+	//パーティクルの初期化
+	modelDeathParticles = Model::CreateFromOBJ("deathParticle", true);
+
+	//パーティクルの仮の生成処理。後で消す
+	deathParticles_ = new DeathParticles;
+	deathParticles_->Initialize(modelDeathParticles, &viewProjection_, position);
 
 	// 天球の生成
 	skydome_ = new Skydome();
@@ -144,6 +157,10 @@ void GameScene::Update() {
 		enemy->Update();
 	}
 
+	if (deathParticles_) {
+		deathParticles_->Update();
+	}
+
 	//全ての当たり判定を行う
 	CheckAllCollisions();
 
@@ -201,9 +218,12 @@ void GameScene::Draw() {
 	player_->Draw();
 
 	// 敵キャラの描画
-	
 	for (Enemy* enemy : enemies_) {
 		enemy->Draw();
+	}
+
+	if (deathParticles_) {
+		deathParticles_->Draw();
 	}
 
 	// 天球の描画
