@@ -8,7 +8,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete model_;
 	delete player_;
-	//delete enemy_;
+	// delete enemy_;
 	for (Enemy* newEnemy : enemies_) {
 		delete newEnemy;
 	}
@@ -36,7 +36,6 @@ GameScene::~GameScene() {
 	}
 
 	delete modelDeathParticles;
-
 }
 
 void GameScene::Initialize() {
@@ -55,14 +54,14 @@ void GameScene::Initialize() {
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
-	//マップチップフィールドの生成と初期化
+	// マップチップフィールドの生成と初期化
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("./Resources/map.csv");
 
 	// 座標をマップチップ番号で指定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(2, 15);
 	// 座標をマップチップ番号で指定
-	//Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
+	// Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
 
 	// 自キャラの生成
 	player_ = new Player();
@@ -73,8 +72,8 @@ void GameScene::Initialize() {
 
 	player_->SetMapChipField(mapChipField_);
 
-	//敵キャラの生成
-	//enemy_ = new Enemy();
+	// 敵キャラの生成
+	// enemy_ = new Enemy();
 	for (int32_t i = 0; i < 2; ++i) {
 		modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 		Enemy* newEnemy = new Enemy();
@@ -84,12 +83,11 @@ void GameScene::Initialize() {
 		enemies_.push_back(newEnemy);
 	}
 
-	//敵キャラの初期化
+	// 敵キャラの初期化
 	/*enemy_->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
 	enemy_->SetMapChipField(mapChipField_);*/
 
-	
-	//ゲームプレイフェーズから開始
+	// ゲームプレイフェーズから開始
 	phase_ = Phase::kPlay;
 
 	// 天球の生成
@@ -99,19 +97,19 @@ void GameScene::Initialize() {
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
-	//カメラコントローラの生成
+	// カメラコントローラの生成
 	cameraController_ = new CameraController();
-	//カメラコントローラの初期化
+	// カメラコントローラの初期化
 	cameraController_->Initialize();
-	//追従対象をセット
+	// 追従対象をセット
 	cameraController_->SetTarget(player_);
-	//リセット
+	// リセット
 	cameraController_->Reset();
 	//
 	CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
 	//
 	cameraController_->SetMovableArea(cameraArea);
-	
+
 	GenerateBlocks();
 
 	// デバッグカメラの生成
@@ -129,7 +127,6 @@ void GameScene::Update() {
 	}
 #endif
 
-	
 	switch (phase_) {
 	case Phase::kPlay:
 
@@ -178,7 +175,7 @@ void GameScene::Update() {
 				worldTransformBlockYoko->TransferMatrix();
 			}
 		}
-		
+
 		// 全ての当たり判定を行う
 		CheckAllCollisions();
 
@@ -194,13 +191,12 @@ void GameScene::Update() {
 			enemy->Update();
 		}
 
+		ChangePhase();
+
 		//
 		if (deathParticles_) {
 			deathParticles_->Update();
 		}
-
-		// カメラコントローラの更新
-		cameraController_->Update();
 
 		// カメラ処理
 		if (isDebugCameraActive_) {
@@ -234,8 +230,6 @@ void GameScene::Update() {
 
 		break;
 	}
-
-	
 }
 
 void GameScene::Draw() {
@@ -265,7 +259,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// 3Dモデル描画
-	//model_->Draw(worldTransform_, viewProjection_, playertextureHandle_);
+	// model_->Draw(worldTransform_, viewProjection_, playertextureHandle_);
 	if (player_->IsDead() == false) {
 		// 自キャラの描画
 		player_->Draw();
@@ -275,7 +269,6 @@ void GameScene::Draw() {
 	for (Enemy* enemy : enemies_) {
 		enemy->Draw();
 	}
-
 
 	if (deathParticles_) {
 		deathParticles_->Draw();
@@ -325,7 +318,7 @@ void GameScene::ChangePhase() {
 			// パーティクルの初期化
 			modelDeathParticles = Model::CreateFromOBJ("deathParticle", true);
 
-			// パーティクルの仮の生成処理
+			// パーティクルの生成処理
 			deathParticles_ = new DeathParticles;
 			deathParticles_->Initialize(modelDeathParticles, &viewProjection_, deathParticlesPosition);
 		}
@@ -333,38 +326,42 @@ void GameScene::ChangePhase() {
 		break;
 	case Phase::kDeath:
 
+		if (deathParticles_ && deathParticles_->IsFinished()) {
+			finished_ = true;
+		}
+
 		break;
 	}
 }
 
 void GameScene::CheckAllCollisions() {
-	//判定対象1と2の座標
+	// 判定対象1と2の座標
 	AABB aabb1, aabb2;
 
-	//自キャラの座標
+	// 自キャラの座標
 	aabb1 = player_->GetAABB();
 
-	//自キャラと敵弾すべての当たり判定
+	// 自キャラと敵弾すべての当たり判定
 	for (Enemy* enemy : enemies_) {
-		//敵弾の座標
+		// 敵弾の座標
 		aabb2 = enemy->GetAABB();
 
-		//AABB同士の交差判定
+		// AABB同士の交差判定
 		if (IsCollision(aabb1, aabb2)) {
-			//自キャラの衝突時コールバックを呼び起こす
+			// 自キャラの衝突時コールバックを呼び起こす
 			player_->OnCollision(enemy);
-			//敵弾の衝突時コールバックを呼び起こす
+			// 敵弾の衝突時コールバックを呼び起こす
 			enemy->OnCollision(player_);
 		}
 	}
 }
 
-void GameScene::GenerateBlocks() { 
+void GameScene::GenerateBlocks() {
 	uint32_t numBlockVirtical = mapChipField_->GetNumBlockVirtical();
 	uint32_t numBlockHorizontal = mapChipField_->GetNumBlockHorizontal();
 
-	//要素数を変更する
-	//列数を設定（縦方向のブロック数）
+	// 要素数を変更する
+	// 列数を設定（縦方向のブロック数）
 	worldTransformBlocks_.resize(numBlockVirtical);
 	// キューブの生成
 	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
@@ -373,7 +370,7 @@ void GameScene::GenerateBlocks() {
 
 	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
 		for (uint32_t j = 0; j < numBlockHorizontal; ++j) {
-			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock){
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
 				WorldTransform* worldTransform = new WorldTransform();
 				worldTransform->Initialize();
 				worldTransformBlocks_[i][j] = worldTransform;

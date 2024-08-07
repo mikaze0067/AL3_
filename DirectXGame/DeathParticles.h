@@ -29,6 +29,11 @@ public:
 	/// </summary>
 	void Draw();
 
+	// デスフラグのgetter
+	bool IsFinished() const { return finished_; }
+
+
+
 private:
 
 	ViewProjection* viewProjection_ = nullptr;
@@ -56,6 +61,7 @@ private:
 	ObjectColor objectColor_;
 	//色の数値
 	Vector4 color_;
-
+	// 終了フラグ
+	bool finished_ = false;
 
 };
