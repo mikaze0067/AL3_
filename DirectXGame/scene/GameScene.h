@@ -50,6 +50,8 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	void ChangePhase();
+
 	void CheckAllCollisions();
 
 	void GenerateBlocks();
@@ -86,6 +88,13 @@ private: // メンバ変数
 	std::list<Enemy*> enemies_;
 
 	DeathParticles* deathParticles_ = nullptr;
+	// ゲームのフェーズ（型）
+	enum class Phase {
+		kPlay,   //ゲームプレイ
+		kDeath,  //デス演出
+	};
+	//ゲームの現在フェーズ（変数）
+	Phase phase_;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;

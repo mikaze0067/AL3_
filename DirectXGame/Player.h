@@ -55,13 +55,16 @@ public:
 
 	const Vector3& GetVelocity() const { return velocity_; }
 
-	Vector3 GetworldPosition();
+	Vector3 GetWorldPosition();
 
 	// AABBを取得
 	AABB GetAABB();
 
 	//衝突応答
 	void OnCollision(const Enemy* enemy);
+
+	//デスフラグgetter
+	bool IsDead() const { return isDead_; }
 
 	private:
 
@@ -98,6 +101,9 @@ public:
 	Model* model_ = nullptr;
 	
 	Vector3 velocity_ = {};
+
+	//デスフラグ
+	bool isDead_ = false;
 
 
 	// 接地状態フラグ
