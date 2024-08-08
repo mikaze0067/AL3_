@@ -45,6 +45,7 @@ void DeathParticles::Update() {
 		counter_ = kDuration;
 		// 終了扱いにする
 		isFinished_ = true;
+		finished_ = true;
 	}
 	color_.w = std::clamp(1.0f - counter_, 0.0f, 1.0f);
 	

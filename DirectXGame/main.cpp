@@ -19,7 +19,7 @@ enum class Scene {
 	kGame,
 };
 // 現在シーン（型）
-Scene scene = Scene::kUnknown;
+Scene scene = Scene::kTitle;
 
 void ChangeScene();
 
@@ -81,6 +81,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// タイトルシーンの初期化
 	titleScene = new TitleScene();
 	titleScene->Initialize();
+	
 
 	// メインループ
 	while (true) {
@@ -119,6 +120,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 各種解放
 	delete gameScene;
 	delete titleScene;
+
 	// 3Dモデル解放
 	Model::StaticFinalize();
 	audio->Finalize();

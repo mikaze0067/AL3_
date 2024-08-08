@@ -191,26 +191,12 @@ void GameScene::Update() {
 			enemy->Update();
 		}
 
-		ChangePhase();
-
 		//
 		if (deathParticles_) {
 			deathParticles_->Update();
 		}
-
-		// カメラ処理
-		if (isDebugCameraActive_) {
-			// デバッグカメラの更新
-			debugCamera_->Update();
-			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-			// ビュープロジェクション行列の転送
-			viewProjection_.TransferMatrix();
-		} else {
-			viewProjection_.matView = cameraController_->GetViewProjection().matView;
-			viewProjection_.matProjection = cameraController_->GetViewProjection().matProjection;
-			// ビュープロジェクション行列の更新と転送
-			viewProjection_.TransferMatrix();
+		if (Input::GetInstance()->PushKey(DIK_R)) {
+			finished_ = true;
 		}
 
 		// 縦横ブロック更新
