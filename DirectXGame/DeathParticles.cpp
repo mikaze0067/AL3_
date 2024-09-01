@@ -1,5 +1,6 @@
 #include "DeathParticles.h"
 #include <cassert>
+#include "Goal.h"
 
 void DeathParticles::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) {
 	// NULLポインタチェック
@@ -16,6 +17,7 @@ void DeathParticles::Initialize(Model* model, ViewProjection* viewProjection, co
 	objectColor_.Initialize();
 	color_ = {1, 1, 1, 1};
 }
+
 
 void DeathParticles::Update() {
 	// 終了なら何もしない

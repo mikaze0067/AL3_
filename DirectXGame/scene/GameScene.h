@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "Skydome.h"
 #include "Sprite.h"
+#include "Goal.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include <MapChipField.h>
@@ -51,6 +52,8 @@ public: // メンバ関数
 
 	void CheckAllCollisions();
 
+	void CheckGoalCollisions();
+
 	void GenerateBlocks();
 
 	// デスフラグのgetter
@@ -72,6 +75,8 @@ private: // メンバ変数
 	Model* modelBlock_ = nullptr;
 	Model* modelEnemy_ = nullptr;
 	Model* modelDeathParticles = nullptr;
+	Model* modelGoal_ = nullptr;
+
 
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -86,12 +91,15 @@ private: // メンバ変数
 	// 敵キャラ
 	// Enemy* enemy_ = nullptr;
 	std::list<Enemy*> enemies_;
+	//ゴール
+	Goal* goal_ = nullptr;
 
 	DeathParticles* deathParticles_ = nullptr;
 	// ゲームのフェーズ（型）
 	enum class Phase {
 		kPlay,  // ゲームプレイ
 		kDeath, // デス演出
+		kGoal,  //ゴール
 	};
 	// ゲームの現在フェーズ（変数）
 	Phase phase_;

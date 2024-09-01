@@ -2,6 +2,7 @@
 #include "AxisIndicator.h"
 #include "DirectXCommon.h"
 #include "GameScene.h"
+#include "Clear.h"
 #include "ImGuiManager.h"
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
@@ -10,6 +11,7 @@
 
 GameScene* gameScene = nullptr;
 TitleScene* titleScene = nullptr;
+ClearScene* clearScene = nullptr;
 
 // シーン（型）
 enum class Scene {
@@ -17,6 +19,7 @@ enum class Scene {
 
 	kTitle,
 	kGame,
+	kClear,
 };
 // 現在シーン（型）
 Scene scene = Scene::kTitle;
@@ -81,6 +84,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// タイトルシーンの初期化
 	titleScene = new TitleScene();
 	titleScene->Initialize();
+	//
+	clearScene = new ClearScene();
+	clearScene->Initialize();
 	
 
 	// メインループ
@@ -120,6 +126,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 各種解放
 	delete gameScene;
 	delete titleScene;
+	delete clearScene;
 
 	// 3Dモデル解放
 	Model::StaticFinalize();

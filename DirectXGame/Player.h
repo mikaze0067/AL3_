@@ -9,6 +9,7 @@
 
 class MapChipField;
 class Enemy;
+class Goal;
 
 /// <summary>
 /// 自キャラ
@@ -63,8 +64,14 @@ public:
 	//衝突応答
 	void OnCollision(const Enemy* enemy);
 
+	// 衝突応答
+	void OnCollision(const Goal* goal);
+
 	//デスフラグgetter
 	bool IsDead() const { return isDead_; }
+
+	//ゴールフラグgetter
+	bool IsGoal() const { return isGoal_; }
 
 	private:
 
@@ -105,6 +112,8 @@ public:
 	//デスフラグ
 	bool isDead_ = false;
 
+	//ゴールフラグ
+	bool isGoal_ = false;
 
 	// 接地状態フラグ
 	bool onGround_ = true;
