@@ -1,6 +1,5 @@
 #include "Goal.h"
 
-
 void Goal::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) {
 	assert(model);
 
