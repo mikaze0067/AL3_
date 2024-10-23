@@ -34,8 +34,24 @@ void Player::Update() {
 	} else if (input_->PushKey(DIK_UP)) {
 		move.y += kCharacterSpeed;
 	}
-	//座標移動（ベクトルの加算）
+
+	// 縦横ブロック更新
+	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
+		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
+			if (!worldTransformBlockYoko)
+				continue;
+
+			// アフィン変換行列の作成
+			//(MakeAffineMatrix：自分で作った数学系関数)
+			worldTransformBlockYoko->matWorld_ = MakeAffineMatrix(worldTransformBlockYoko->scale_, worldTransformBlockYoko->rotation_, worldTransformBlockYoko->translation_);
+
+			// 定数バッファに転送
+			worldTransformBlockYoko->TransferMatrix();
+		}
+	}
+	// 座標移動（ベクトルの加算）
 	worldTransform_.translation_ += move;
+	
 
 }
 

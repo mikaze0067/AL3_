@@ -2,6 +2,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include <Input.h>
+#include "MathUtilityForText.h"
+
 
 class Player {
 public: // メンバ関数
