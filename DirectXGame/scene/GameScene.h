@@ -9,6 +9,8 @@
 #include "WorldTransform.h"
 #include <DebugCamera.h>
 #include <Player.h>
+#include "MathUtilityForText.h"
+
 
 /// <summary>
 /// ゲームシーン

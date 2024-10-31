@@ -2,6 +2,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include <Input.h>
+#include "MathUtilityForText.h"
+
 
 class Player {
 public: // メンバ関数
@@ -30,5 +32,7 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//キーボード入力
 	Input* input_ = nullptr;
+	// 縦横ブロック配列
+	WorldTransform* worldTransformBlock_;
 
 };
