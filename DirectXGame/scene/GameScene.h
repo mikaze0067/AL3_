@@ -58,6 +58,8 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0;
 	//自キャラ
 	Player* player_ = nullptr;
+	//デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
 
 	/// <summary>
 	/// ゲームシーン用

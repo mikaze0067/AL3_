@@ -40,16 +40,28 @@ void Player::Update() {
 
 	// アフィン変換行列の作成
 	//(MakeAffineMatrix：自分で作った数学系関数)
-	worldTransformBlock_->matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
 	// 定数バッファに転送
-	worldTransformBlock_->TransferMatrix();
+	worldTransform_.TransferMatrix();
+
+	const float kMoveLimitX = 34;
+	const float kMoveLimitY = 18;
+
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 
+	
+
 	//キャラクターの座標を画面表示する処理
-	ImGui::Begin("");
+	//ImGui::Begin("");
+
+	//ImGui::End();
 
 }
 

@@ -32,7 +32,6 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//キーボード入力
 	Input* input_ = nullptr;
-	// 縦横ブロック配列
-	WorldTransform* worldTransformBlock_;
+	
 
 };
