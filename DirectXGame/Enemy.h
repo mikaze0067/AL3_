@@ -2,7 +2,10 @@
 #include "WorldTransform.h"
 #include <Model.h>
 #include "ViewProjection.h"
-
+enum class Phase {
+	Approach, //接近する
+	Leave,    //離脱する
+};
 
 class Enemy {
 public: // メンバ関数
@@ -28,4 +31,6 @@ private:
 	Model* model_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+	//フェーズ
+	Phase phase_ = Phase::Approach;
 };

@@ -14,28 +14,26 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 }
 
 void Enemy::Update() {
-	// 行列を定数バッファに転送
-	worldTransform_.TransferMatrix();
+	
 	// キャラクターの移動ベクトル
 	Vector3 move = {0, 0, 0};
 
 	// キャラクターの移動速さ
 	const float kCharacterSpeed = 0.2f;
 
-	move.z -= kCharacterSpeed;
+	//move.x -= kCharacterSpeed;
 	//move.x += kCharacterSpeed;
 	//move.y -= kCharacterSpeed;
 	//move.y += kCharacterSpeed;
+	//move.z -= kCharacterSpeed;
+	//move.z += kCharacterSpeed;
 	
 	// 座標移動（ベクトルの加算）
-	worldTransform_.translation_ += move;
+	//worldTransform_.translation_ += move;
 
 	// アフィン変換行列の作成
 	//(MakeAffineMatrix：自分で作った数学系関数)
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-
-	// 定数バッファに転送
-	worldTransform_.TransferMatrix();
 
 	const float kMoveLimitX = 34;
 	const float kMoveLimitY = 18;
@@ -47,6 +45,21 @@ void Enemy::Update() {
 
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
+
+	switch (phase_) {
+	case Phase::Approach:
+	default:
+		// 移動（ベクトルを加算）
+		worldTransform_.translation_ += move;
+		// 既定の位置に到達したら離脱
+		if (worldTransform_.translation_.z < 0.0f) {
+			phase_ = Phase::Leave;
+		}
+		break;
+	case Phase::Leave:
+		// 移動（ベクトルを加算）
+		worldTransform_.translation_ += move;
+	}
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {
