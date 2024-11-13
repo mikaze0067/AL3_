@@ -1,17 +1,16 @@
+#pragma once
+#include <Vector3.h>
 #include <Model.h>
-#include "ViewProjection.h"
 #include "WorldTransform.h"
-#include <Input.h>
-#include "MathUtilityForText.h"
-#include <PlayerBullet.h>
+#include <cassert>
 
 
-class Player {
+class PlayerBullet {
 public: // メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model,uint32_t textureHandle);
+	void Initialize(Model* model, const Vector3& posision);
 
 	/// <summary>
 	/// 毎フレーム処理
@@ -21,21 +20,15 @@ public: // メンバ関数
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw(ViewProjection& veiwProjection);
-
-	void Attack();
+	void Draw(const ViewProjection& viewProjection);
 
 private:
-
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// 3Dモデル
 	Model* model_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
-	//キーボード入力
-	Input* input_ = nullptr;
-	//弾
-	PlayerBullet* bullet_ = nullptr;
 
 };
+
