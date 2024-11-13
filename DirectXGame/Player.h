@@ -4,7 +4,7 @@
 #include <Input.h>
 #include "MathUtilityForText.h"
 #include <PlayerBullet.h>
-
+#include <list>
 
 class Player {
 public: // メンバ関数
@@ -25,6 +25,8 @@ public: // メンバ関数
 
 	void Attack();
 
+	~Player();
+
 private:
 
 	// ワールドトランスフォーム
@@ -36,6 +38,6 @@ private:
 	//キーボード入力
 	Input* input_ = nullptr;
 	//弾
-	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet*> bullets_;
 
 };
