@@ -1,12 +1,10 @@
+#pragma once
+#include "WorldTransform.h"
 #include <Model.h>
 #include "ViewProjection.h"
-#include "WorldTransform.h"
-#include <Input.h>
-#include "MathUtilityForText.h"
-#include <PlayerBullet.h>
-#include <list>
 
-class Player {
+
+class Enemy {
 public: // メンバ関数
 	/// <summary>
 	/// 初期化
@@ -23,21 +21,11 @@ public: // メンバ関数
 	/// </summary>
 	void Draw(ViewProjection& viewProjection);
 
-	void Attack();
-
-	~Player();
-
 private:
-
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// 3Dモデル
 	Model* model_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
-	//キーボード入力
-	Input* input_ = nullptr;
-	//弾
-	std::list<PlayerBullet*> bullets_;
-
 };

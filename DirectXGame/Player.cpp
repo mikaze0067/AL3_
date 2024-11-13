@@ -62,9 +62,6 @@ void Player::Update() {
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
-	// 行列を定数バッファに転送
-	worldTransform_.TransferMatrix();
-
 	// 回転の速さ[ラジアン/frame]
 	const float kRotSpeed = 0.02f;
 

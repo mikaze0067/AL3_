@@ -10,6 +10,7 @@
 #include <DebugCamera.h>
 #include <Player.h>
 #include "MathUtilityForText.h"
+#include <Enemy.h>
 
 
 /// <summary>
@@ -45,6 +46,7 @@ public: // メンバ関数
 
 	// 3Dモデル
 	Model* model_ = nullptr;
+	Model* modelEnemy_ = nullptr;
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
@@ -56,8 +58,12 @@ private: // メンバ変数
 	Audio* audio_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	// テクスチャハンドル
+	uint32_t textureHandleEnemy_ = 0;
 	//自キャラ
 	Player* player_ = nullptr;
+	// 敵キャラ
+	Enemy* enemy_ = nullptr;
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
 
