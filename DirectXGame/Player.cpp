@@ -81,9 +81,11 @@ void Player::Update() {
 	}
 
 	//キャラクターの座標を画面表示する処理
-	//ImGui::Begin("");
+	/*ImGui::Begin("Player");
 
-	//ImGui::End();
+	ImGui::
+
+	ImGui::End();*/
 
 }
 

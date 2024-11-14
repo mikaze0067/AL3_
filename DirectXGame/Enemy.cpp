@@ -21,7 +21,7 @@ void Enemy::Update() {
 	// キャラクターの移動速さ
 	const float kCharacterSpeed = 0.2f;
 
-	//move.x -= kCharacterSpeed;
+	move.x -= kCharacterSpeed;
 	//move.x += kCharacterSpeed;
 	//move.y -= kCharacterSpeed;
 	//move.y += kCharacterSpeed;
@@ -52,14 +52,19 @@ void Enemy::Update() {
 		// 移動（ベクトルを加算）
 		worldTransform_.translation_ += move;
 		// 既定の位置に到達したら離脱
-		if (worldTransform_.translation_.z < 0.0f) {
+		if (worldTransform_.translation_.x < -25.0f) {
 			phase_ = Phase::Leave;
 		}
 		break;
 	case Phase::Leave:
 		// 移動（ベクトルを加算）
-		worldTransform_.translation_ += move;
+		worldTransform_.translation_ -= move;
+		// 既定の位置に到達したら離脱
+		if (worldTransform_.translation_.x > 25.0f) {
+			phase_ = Phase::Approach;
+		}
 	}
+
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {
