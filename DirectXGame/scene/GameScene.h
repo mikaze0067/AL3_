@@ -49,6 +49,7 @@ public: // メンバ関数
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelEnemy_ = nullptr;
+	
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
@@ -66,6 +67,7 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	// 敵キャラ
 	Enemy* enemy_ = nullptr;
+
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
 
