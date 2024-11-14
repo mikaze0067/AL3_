@@ -13,6 +13,7 @@ GameScene::~GameScene() {
 	delete player_;
 	delete debugCamera_;
 	delete enemy_;
+	delete sprite_;
 }
 
 void GameScene::Initialize() {
@@ -23,6 +24,7 @@ void GameScene::Initialize() {
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg ");
 	textureHandleEnemy_ = TextureManager::Load("mario.jpg ");
+	
 
 	// 3Dモデルの生成
 	model_ = Model::Create();
@@ -59,6 +61,43 @@ void GameScene::Update() {
 
 	// 敵キャラの更新
 	enemy_->Update();
+
+	color += 0.1f;
+
+	//if (input_->TriggerKey(DIK_SPACE) && !bossFrag) {
+	//	bossFrag = true;
+	//	timer = 180; // 3秒間のカウントダウン
+	//}
+
+	//// ボスフラグが立っている間、透明度を上げ下げする
+	//if (bossFrag) {
+	//	timer--;
+
+	//	// 透明度を増加
+	//	color.w += alphaSpeed;
+
+	//	// 透明度が0.8を超えたら減少方向に切り替え、0.0未満になったら増加方向に切り替え
+	//	if (color.w >= 0.8f || color.w <= 0.0f) {
+	//		alphaSpeed = -alphaSpeed; // 増加・減少の切り替え
+	//	}
+
+	//	// 透明度が0.0以下にならないように制限
+	//	if (color.w < 0.0f) {
+	//		color.w = 0.0f;
+	//	}
+
+	//	// 透明度が1.0以上にならないように制限
+	//	if (color.w > 1.0f) {
+	//		color.w = 1.0f;
+	//	}
+	//}
+
+	//// タイマーが0になった場合の処理
+	//if (timer <= 0) {
+	//	bossFrag = false;
+	//	color.w = 0.0f; // アルファ値をリセット
+	//}
+
 
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
@@ -127,10 +166,13 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-
+	
+	sprite_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
+	// 深度バッファクリア
+	dxCommon_->ClearDepthBuffer();
 
 #pragma endregion
 }

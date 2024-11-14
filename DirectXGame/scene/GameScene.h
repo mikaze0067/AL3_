@@ -11,6 +11,8 @@
 #include <Player.h>
 #include "MathUtilityForText.h"
 #include <Enemy.h>
+#include <Input.h>
+
 
 
 /// <summary>
@@ -56,9 +58,9 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
-	// テクスチャハンドル
 	uint32_t textureHandleEnemy_ = 0;
 	//自キャラ
 	Player* player_ = nullptr;
@@ -69,6 +71,7 @@ private: // メンバ変数
 
 	DebugCamera* debugCamera_ = nullptr;
 
+	
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
