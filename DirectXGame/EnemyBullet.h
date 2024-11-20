@@ -5,13 +5,13 @@
 #include <cassert>
 
 
-class PlayerBullet {
+class EnemyBullet {
 public: // メンバ関数
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
-
+	void Initialize(Model* model, const Vector3& posision, const Vector3& velocity);
 
 	/// <summary>
 	/// 毎フレーム処理
@@ -28,18 +28,17 @@ public: // メンバ関数
 	static const int32_t kLifeTime = 60 * 5;
 
 private:
+
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// 3Dモデル
 	Model* model_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
-	//速度
+	// 速度
 	Vector3 velocity_;
-	//デスタイマー
+	// デスタイマー
 	int32_t deathTimer_ = kLifeTime;
-	//デスフラグ
+	// デスフラグ
 	bool isDead_ = false;
-
 };
-

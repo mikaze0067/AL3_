@@ -2,6 +2,7 @@
 #include "WorldTransform.h"
 #include <Model.h>
 #include "ViewProjection.h"
+#include <EnemyBullet.h>
 enum class Phase {
 	Approach, //接近する
 	Leave,    //離脱する
@@ -24,6 +25,15 @@ public: // メンバ関数
 	/// </summary>
 	void Draw(ViewProjection& viewProjection);
 
+	void Fire();
+	
+	~Enemy();
+
+	//発射間隔
+	static const int kFireInterval = 60;
+	//接近フェーズ初期化
+	void Approach();
+
 private:
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -33,4 +43,8 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//フェーズ
 	Phase phase_ = Phase::Approach;
+	// 弾
+	std::list<EnemyBullet*> bullets_;
+	//発射タイマー
+	int32_t fireTimer = 0;
 };
