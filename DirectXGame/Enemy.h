@@ -8,6 +8,8 @@ enum class Phase {
 	Leave,    //離脱する
 };
 
+class Player;
+
 class Enemy {
 public: // メンバ関数
 	/// <summary>
@@ -34,6 +36,10 @@ public: // メンバ関数
 	//接近フェーズ初期化
 	void Approach();
 
+	Vector3 GetWorldPosition();
+
+	void SetPlayer(Player* player) { player_ = player;}
+
 private:
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -47,4 +53,6 @@ private:
 	std::list<EnemyBullet*> bullets_;
 	//発射タイマー
 	int32_t fireTimer = 0;
+	//自キャラ
+	Player* player_ = nullptr;
 };

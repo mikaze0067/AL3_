@@ -60,6 +60,9 @@ void GameScene::Update() {
 	// 敵キャラの更新
 	enemy_->Update();
 
+	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetPlayer(player_);
+
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;

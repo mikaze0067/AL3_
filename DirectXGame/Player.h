@@ -27,6 +27,9 @@ public: // メンバ関数
 
 	~Player();
 
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
+
 private:
 
 	// ワールドトランスフォーム

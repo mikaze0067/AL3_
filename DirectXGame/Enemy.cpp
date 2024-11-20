@@ -96,15 +96,23 @@ void Enemy::Draw(ViewProjection& viewProjection) {
 }
 
 void Enemy::Fire() {
-	// 自キャラの座標をコピー
-	// DirectX::XMFLOAT3 position = worldTransform_.translation_;
+	assert(player_);
 
-	// 弾の速度
+	// 弾の速度(調整項目)
 	const float kBulletSpeed = 1.0f;
+
+	
+	//自キャラの座標を取得する
+	
+	//敵キャラの座標を取得する
+	Enemy::GetWorldPosition();
+
+	
 	Vector3 velocity(0, 0, kBulletSpeed);
 
 	// 速度ベクトルを自機の向きに合わせて回転させる
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+
 
 	// 弾を生成し、初期化
 	EnemyBullet* newBullet = new EnemyBullet();
@@ -129,4 +137,14 @@ void Enemy::Approach() {
 		// 発射タイマー
 		fireTimer = 0;
 	}
+}
+
+Vector3 Enemy::GetWorldPosition() {
+	/// ワールド座標を入れる変数
+	Vector3 worldPos;
+	// ワールド行列の平行移動成分を取得(ワールド座標)
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+	return worldPos;
 }
