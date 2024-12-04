@@ -8,7 +8,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	assert(model);
 
 	model_ = model;
-	textureHandle_ = TextureManager::Load("white1x1.png");
+	textureHandle_ = TextureManager::Load("Red.png");
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
 	// 引数で受け取った初期座標をセット
