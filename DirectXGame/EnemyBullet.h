@@ -27,6 +27,12 @@ public: // メンバ関数
 
 	static const int32_t kLifeTime = 60 * 5;
 
+	// 衝突を検知したら呼び出されるコールバック関数
+	void OnCollision();
+
+	Vector3 GetWorldPosition();
+
+
 private:
 
 	// ワールドトランスフォーム

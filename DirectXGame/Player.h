@@ -30,6 +30,12 @@ public: // メンバ関数
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
 
+	// 衝突を検知したら呼び出されるコールバック関数
+	void OnCollision();
+
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
+
+
 private:
 
 	// ワールドトランスフォーム

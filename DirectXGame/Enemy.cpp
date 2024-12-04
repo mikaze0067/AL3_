@@ -166,3 +166,5 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.z = worldTransform_.translation_.z;
 	return worldPos;
 }
+
+void Enemy::OnCollision() {}

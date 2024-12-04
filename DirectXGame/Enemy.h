@@ -40,6 +40,13 @@ public: // メンバ関数
 
 	void SetPlayer(Player* player) { player_ = player;}
 
+	// 衝突を検知したら呼び出されるコールバック関数
+	void OnCollision();
+
+	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
+
+
+
 private:
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;

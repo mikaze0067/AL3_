@@ -44,6 +44,8 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	void CheckAllCollisions();
+
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelEnemy_ = nullptr;
