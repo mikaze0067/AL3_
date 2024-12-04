@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include <cassert>
 #include "MathUtilityForText.h"
+#include <imgui.h>
 
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle) {
@@ -65,6 +66,7 @@ void Enemy::Update() {
 		bullet->Update();
 	}
 
+	const char* phaseName = "Approach";
 	switch (phase_) {
 	case Phase::Approach:
 	default:
@@ -83,6 +85,13 @@ void Enemy::Update() {
 			phase_ = Phase::Approach;
 		}
 	}
+	// キャラクターの座標を画面表示する処理
+	ImGui::Begin("Player");
+
+	ImGui::Text("Current Phase: %s", phaseName); // フェーズ名を表示
+
+	ImGui::End();
+	
 
 }
 
