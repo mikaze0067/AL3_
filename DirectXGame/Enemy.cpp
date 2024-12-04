@@ -67,21 +67,27 @@ void Enemy::Update() {
 	}
 
 	const char* phaseName = "Approach";
+	Vector3 Amove = {0.2f, 0.0f, 0.0f};
+	Vector3 Lmove = {0.2f, 0.0f, 0.0f};
 	switch (phase_) {
 	case Phase::Approach:
 	default:
+		phaseName = "Approach";
+
 		// 移動（ベクトルを加算）
-		worldTransform_.translation_ += move;
+		worldTransform_.translation_ += Amove;
 		// 既定の位置に到達したら離脱
-		if (worldTransform_.translation_.x < -25.0f) {
+		if (worldTransform_.translation_.x > +20.0f) {
 			phase_ = Phase::Leave;
 		}
 		break;
 	case Phase::Leave:
+		phaseName = "Leave";
+
 		// 移動（ベクトルを加算）
-		worldTransform_.translation_ -= move;
+		worldTransform_.translation_ -= Lmove;
 		// 既定の位置に到達したら離脱
-		if (worldTransform_.translation_.x > 25.0f) {
+		if (worldTransform_.translation_.x < -20.0f) {
 			phase_ = Phase::Approach;
 		}
 	}
