@@ -1,6 +1,8 @@
 #include "Enemy.h"
 #include <cassert>
 #include "MathUtilityForText.h"
+#include <imgui.h>
+#include <Player.h>
 
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle) {
@@ -25,6 +27,8 @@ void Enemy::Update() {
 		return false;
 	});
 	
+	worldTransform_.translation_.z = 10.0f;
+
 	// キャラクターの移動ベクトル
 	Vector3 move = {0, 0, 0};
 
@@ -65,25 +69,37 @@ void Enemy::Update() {
 		bullet->Update();
 	}
 
+	const char* phaseName = "Approach";
+	Vector3 Amove = {0.2f, 0.0f, 0.0f};
+	Vector3 Lmove = {0.2f, 0.0f, 0.0f};
 	switch (phase_) {
 	case Phase::Approach:
 	default:
+		phaseName = "Approach";
+
 		// 移動（ベクトルを加算）
-		worldTransform_.translation_ += move;
+		worldTransform_.translation_ += Amove;
 		// 既定の位置に到達したら離脱
-		if (worldTransform_.translation_.x < -25.0f) {
+		if (worldTransform_.translation_.x > 20.0f) {
 			phase_ = Phase::Leave;
 		}
 		break;
 	case Phase::Leave:
+		phaseName = "Leave";
+
 		// 移動（ベクトルを加算）
-		worldTransform_.translation_ -= move;
+		worldTransform_.translation_ -= Lmove;
 		// 既定の位置に到達したら離脱
-		if (worldTransform_.translation_.x > 25.0f) {
+		if (worldTransform_.translation_.x < -20.0f) {
 			phase_ = Phase::Approach;
 		}
 	}
+	// キャラクターの座標を画面表示する処理
+	ImGui::Begin("Player");
 
+	ImGui::Text("Current Phase: %s", phaseName); // フェーズ名を表示
+
+	ImGui::End();
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {
@@ -99,20 +115,22 @@ void Enemy::Fire() {
 	assert(player_);
 
 	// 弾の速度(調整項目)
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = -1.0f;
 
-	
-	//自キャラの座標を取得する
-	
-	//敵キャラの座標を取得する
-	Enemy::GetWorldPosition();
-
-	
 	Vector3 velocity(0, 0, kBulletSpeed);
-
 	// 速度ベクトルを自機の向きに合わせて回転させる
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
-
+	
+	//自キャラの座標を取得する
+	Vector3 playerPos = player_->GetWorldPosition();
+	//敵キャラの座標を取得する
+	Vector3 enemyPos = Enemy::GetWorldPosition();
+	//敵キャラから自キャラへと差別ベクトルを求める
+	Vector3 direction = enemyPos - playerPos;
+	//ベクトル正規化
+	Vector3 normalizedDirection = Normalize(direction);
+	//ベクトルの長さを、速さに合わせる
+	velocity = normalizedDirection * kBulletSpeed;
 
 	// 弾を生成し、初期化
 	EnemyBullet* newBullet = new EnemyBullet();

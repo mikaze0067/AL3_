@@ -90,3 +90,24 @@ Matrix4x4 PlayerAffineMatrix(const Vector3& scale, const Vector3& rotate, const 
 
 	return ansMat;
 }
+
+float Dot(const Vector3& v1, const Vector3& v2) {
+	float ans;
+	ans = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	return ans;
+}
+
+float Length(const Vector3& v) {
+	float ans;
+	ans = sqrtf(Dot(v, v));
+	return ans;
+}
+// 正規化
+Vector3 Normalize(const Vector3& v) {
+	float len = Length(v);
+	if (len == 0) {
+		// 長さが0の場合、ゼロベクトルを返すか、エラー処理を行う
+		return Vector3(0, 0, 0);
+	}
+	return Vector3(v.x / len, v.y / len, v.z / len);
+}

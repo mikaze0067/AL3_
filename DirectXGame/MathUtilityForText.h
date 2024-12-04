@@ -39,3 +39,10 @@ Vector3 Leap(const Vector3& v1, const Vector3& v2, float t);
 bool IsCollision(const AABB& aabb1, const AABB& aabb2);
 
 Matrix4x4 PlayerAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
+
+float Dot(const Vector3& v1, const Vector3& v2);
+
+float Length(const Vector3& v);
+
+Vector3 Normalize(const Vector3& v);
+
