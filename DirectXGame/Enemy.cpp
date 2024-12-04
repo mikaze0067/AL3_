@@ -80,10 +80,6 @@ void Enemy::Update() {
 	ImGui::Text("Current Phase: %s", phaseName); // フェーズ名を表示
 
 	ImGui::End();
-	// ImGui::Begin("Game Phase");  // ウィンドウのタイトル
-	// ImGui::Text("Current Phase: %s", phaseName);  // フェーズ名を表示
-	// ImGui::Text("miss Count %d", missCount_);
-	// ImGui::End();
 
 }
 
