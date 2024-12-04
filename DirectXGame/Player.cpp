@@ -80,12 +80,7 @@ void Player::Update() {
 		bullet->Update();
 	}
 
-	//キャラクターの座標を画面表示する処理
-	/*ImGui::Begin("Player");
-
-	ImGui::
-
-	ImGui::End();*/
+	
 
 }
 

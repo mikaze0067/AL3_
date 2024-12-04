@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include <cassert>
 #include "MathUtilityForText.h"
+#include <imgui.h>
 
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle) {
@@ -46,24 +47,43 @@ void Enemy::Update() {
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 
+	const char* phaseName = "Approach";
+	Vector3 Amove = {0.2f, 0.0f, 0.0f};
+	Vector3 Lmove = {0.2f, 0.0f, 0.0f};
 	switch (phase_) {
 	case Phase::Approach:
 	default:
+		phaseName = "Approach";
+		
 		// 移動（ベクトルを加算）
-		worldTransform_.translation_ += move;
+		worldTransform_.translation_ += Amove;
 		// 既定の位置に到達したら離脱
-		if (worldTransform_.translation_.x < -25.0f) {
+		if (worldTransform_.translation_.x > +20.0f) {
 			phase_ = Phase::Leave;
+			
 		}
 		break;
 	case Phase::Leave:
+		phaseName = "Leave";
+		
 		// 移動（ベクトルを加算）
-		worldTransform_.translation_ -= move;
+		worldTransform_.translation_ -= Lmove;
 		// 既定の位置に到達したら離脱
-		if (worldTransform_.translation_.x > 25.0f) {
+		if (worldTransform_.translation_.x < -20.0f) {
 			phase_ = Phase::Approach;
+			
 		}
 	}
+	// キャラクターの座標を画面表示する処理
+	ImGui::Begin("Player");
+
+	ImGui::Text("Current Phase: %s", phaseName); // フェーズ名を表示
+
+	ImGui::End();
+	// ImGui::Begin("Game Phase");  // ウィンドウのタイトル
+	// ImGui::Text("Current Phase: %s", phaseName);  // フェーズ名を表示
+	// ImGui::Text("miss Count %d", missCount_);
+	// ImGui::End();
 
 }
 
