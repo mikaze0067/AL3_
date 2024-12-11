@@ -63,6 +63,8 @@ void GameScene::Update() {
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
+	CheckAllCollisions();
+
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;
@@ -142,25 +144,55 @@ void GameScene::CheckAllCollisions() {
 	Vector3 posA, posB;
 
 	// 自弾リストの取得
-	//const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	// 敵弾リストの取得
 	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+
+#pragma region 自キャラと敵弾の当たり判定
 	// 自キャラの座標
 	posA = player_->GetWorldPosition();
-	// 自キャラと敵弾すべての当たり判定
 	for (EnemyBullet* bullet : enemyBullets) {
 		// 敵弾の座標
 		posB = bullet->GetWorldPosition();
-
-		// posAとposBの距離を求める
-		float distance = sqrt(pow(posB.x - posA.x, 2.0f) + pow(posB.y - posA.y, 2.0f) + pow(posB.z - posA.z, 2.0f));
-
 		// 球と球の交差判定
-		if (distance <= posA + posB){
+		if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
 			// 自キャラの衝突時コールバックを呼び出す
 			player_->OnCollision();
 			// 敵弾の衝突時コールバックを呼び出す
 			bullet->OnCollision();
 		}
 	}
+#pragma endregion
+#pragma region 自弾と敵キャラの当たり判定
+	// 敵キャラの座標
+	posB = enemy_->GetWorldPosition();
+	for (PlayerBullet* bullet : playerBullets) {
+		// 自弾の座標
+		posA = bullet->GetWorldPosition();
+		// 球と球の交差判定
+		if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
+			// 敵キャラの衝突時コールバックを呼び出す
+			enemy_->OnCollision();
+			// 自弾の衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+	}
+#pragma endregion
+#pragma region 自弾と敵弾の当たり判定
+	for (PlayerBullet* bulletP : playerBullets) {
+		// 自弾の座標
+		posA = bulletP->GetWorldPosition();
+		for (EnemyBullet* bulletE : enemyBullets) {
+			// 敵弾の座標
+			posB = bulletE->GetWorldPosition();
+			// 球と球の交差判定
+			if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
+				// 自弾の衝突時コールバックを呼び出す
+				bulletP->OnCollision();
+				// 敵弾の衝突時コールバックを呼び出す
+				bulletE->OnCollision();
+			}
+		}
+	}
+#pragma endregion
 }

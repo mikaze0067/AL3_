@@ -27,7 +27,7 @@ void Enemy::Update() {
 		return false;
 	});
 	
-	worldTransform_.translation_.z = 10.0f;
+	worldTransform_.translation_.z = 30.0f;
 
 	// キャラクターの移動ベクトル
 	Vector3 move = {0, 0, 0};
@@ -104,7 +104,11 @@ void Enemy::Update() {
 
 void Enemy::Draw(ViewProjection& viewProjection) {
 	// 3Dモデルを描画
+	//if (isDead_ == false) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	//}
+
+
 	// 弾描画
 	for (EnemyBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);

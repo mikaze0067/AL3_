@@ -62,4 +62,6 @@ private:
 	int32_t fireTimer = 0;
 	//自キャラ
 	Player* player_ = nullptr;
+	// デスフラグ
+	//bool isDead_ = false;
 };
