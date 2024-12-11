@@ -11,6 +11,7 @@
 #include <Player.h>
 #include "MathUtilityForText.h"
 #include <Enemy.h>
+#include <Skydome.h>
 
 
 /// <summary>
@@ -49,6 +50,7 @@ public: // メンバ関数
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelEnemy_ = nullptr;
+	Model* modelSkydome_ = nullptr;
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
@@ -70,6 +72,8 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 
 	DebugCamera* debugCamera_ = nullptr;
+	// 天球
+	Skydome* skydome_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

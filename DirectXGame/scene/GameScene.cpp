@@ -13,6 +13,7 @@ GameScene::~GameScene() {
 	delete player_;
 	delete debugCamera_;
 	delete enemy_;
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -27,6 +28,7 @@ void GameScene::Initialize() {
 	// 3Dモデルの生成
 	model_ = Model::Create();
 	modelEnemy_ = Model::Create();
+	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
 
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
@@ -47,6 +49,12 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
+	//天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_, &viewProjection_);
+
+
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
@@ -54,6 +62,8 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+	// 天球の更新
+	skydome_->Update();
 	//自キャラの更新
 	player_->Update();
 
@@ -114,6 +124,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	// 天球の描画
+	skydome_->Draw();
 
 	//自キャラの描画
 	player_->Draw(viewProjection_);
