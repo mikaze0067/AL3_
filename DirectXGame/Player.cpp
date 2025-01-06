@@ -86,7 +86,6 @@ void Player::Update() {
 	ImGui::
 
 	ImGui::End();*/
-
 }
 
 void Player::Draw(ViewProjection& viewProjection) {
