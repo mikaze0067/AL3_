@@ -1,6 +1,6 @@
 #include "Player.h"
 #include <cassert>
-#include <imgui.h>
+//#include <imgui.h>
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	// NULLポインタチェック

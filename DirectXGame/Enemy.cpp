@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include <cassert>
 #include "MathUtilityForText.h"
-#include <imgui.h>
+//#include <imgui.h>
 #include <Player.h>
 
 
@@ -95,11 +95,11 @@ void Enemy::Update() {
 		}
 	}
 	// キャラクターの座標を画面表示する処理
-	ImGui::Begin("Player");
+	//ImGui::Begin("Player");
 
-	ImGui::Text("Current Phase: %s", phaseName); // フェーズ名を表示
+	//ImGui::Text("Current Phase: %s", phaseName); // フェーズ名を表示
 
-	ImGui::End();
+	//ImGui::End();
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {
