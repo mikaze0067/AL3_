@@ -47,6 +47,9 @@ public: // メンバ関数
 
 	void CheckAllCollisions();
 
+	// デスフラグのgetter
+	bool IsFinished() const { return finished_; }
+
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelEnemy_ = nullptr;
@@ -74,6 +77,8 @@ private: // メンバ変数
 	DebugCamera* debugCamera_ = nullptr;
 	// 天球
 	Skydome* skydome_ = nullptr;
+	// 終了フラグ
+	bool finished_ = false;
 
 	/// <summary>
 	/// ゲームシーン用
