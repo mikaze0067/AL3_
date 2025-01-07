@@ -3,6 +3,8 @@
 #include "Model.h"
 #include"ViewProjection.h"
 #include"WorldTransform.h"
+#include <Sprite.h>
+#include <TextureManager.h>
 
 
 class TitleScene {
@@ -37,4 +39,7 @@ private:
 	// 終了フラグ
 	bool finished_ = false;
 	static inline const float kTimeTitleMove = 2.0f;
+
+	uint32_t textureHandle_ = 0;
+	Sprite* sprite_ = nullptr;
 };

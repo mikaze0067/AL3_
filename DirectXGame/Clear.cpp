@@ -59,11 +59,3 @@ void ClearScene::Draw() {
 	//dxCommon_->ClearDepthBuffer();
 	
 }
-
-void ClearScene::SetScore(uint32_t score100, uint32_t score10, uint32_t score1)
-{
-	score_100 = score100;
-	score_10 = score10;
-	score_1 = score1;
-}
-

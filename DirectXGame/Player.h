@@ -36,6 +36,8 @@ public: // メンバ関数
 
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 
+	bool IsFinished() const { return finished_; }
+
 
 private:
 
@@ -49,5 +51,8 @@ private:
 	Input* input_ = nullptr;
 	//弾
 	std::list<PlayerBullet*> bullets_;
+
+	bool finished_ = false;
+
 
 };

@@ -169,7 +169,7 @@ void GameScene::CheckAllCollisions() {
 		// 球と球の交差判定
 		if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
 			// 自キャラの衝突時コールバックを呼び出す
-			player_->OnCollision();
+			player_->IsFinished();
 			// 敵弾の衝突時コールバックを呼び出す
 			bullet->OnCollision();
 		}
@@ -184,7 +184,7 @@ void GameScene::CheckAllCollisions() {
 		// 球と球の交差判定
 		if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
 			// 敵キャラの衝突時コールバックを呼び出す
-			enemy_->OnCollision();
+			enemy_->IsFinished();
 			// 自弾の衝突時コールバックを呼び出す
 			bullet->OnCollision();
 		}

@@ -28,12 +28,6 @@ public:
 	// デスフラグのgetter
 	bool IsFinished() const { return finished_; }
 
-	void SetScore(uint32_t score100, uint32_t score10, uint32_t score1);
-
-	int GetScore100() const { return score_100; }
-	int GetScore10() const { return score_10; }
-	int GetScore1() const { return score_1; }
-
 private:
 	ViewProjection viewProjection_;
 	WorldTransform worldTransformTitle_;
@@ -50,18 +44,9 @@ private:
 
 	int time = 360;
 
-	int score_100;
-	int score_10;
-	int score_1;
-	int score_;
 	
 	//
 	uint32_t texture;
 	Sprite* sprite = nullptr;
-	Sprite* scoreSprite100_ = nullptr;
-
-	Sprite* scoreSprite10_ = nullptr;
-
-	Sprite* scoreSprite1_ = nullptr;
 	
 };
