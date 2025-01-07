@@ -48,7 +48,7 @@ private:
 	bool finished_ = false;
 	static inline const float kTimeTitleMove = 2.0f;
 
-	int time = 420;
+	int time = 360;
 
 	int score_100;
 	int score_10;
