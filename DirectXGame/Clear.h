@@ -32,7 +32,6 @@ private:
 	ViewProjection viewProjection_;
 	WorldTransform worldTransformTitle_;
 	WorldTransform worldTransformPlayer_;
-	DirectXCommon* dxCommon_ = nullptr;
 
 
 	Model* model_ = nullptr;

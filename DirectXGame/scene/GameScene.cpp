@@ -22,7 +22,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("mario.jpg ");
+	textureHandle_ = TextureManager::Load("Green.png ");
 	textureHandleEnemy_ = TextureManager::Load("Blue.png ");
 
 	// 3Dモデルの生成
@@ -54,6 +54,9 @@ void GameScene::Initialize() {
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
+	soundDataHandle_ = audio_->LoadWave("maou_bgm_ethnic32.mp3");
+	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+
 
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
@@ -74,6 +77,9 @@ void GameScene::Update() {
 	enemy_->SetPlayer(player_);
 
 	CheckAllCollisions();
+	if (finished_ == true) {
+		audio_->StopWave(voiceHandle_);
+	}
 
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
@@ -184,9 +190,10 @@ void GameScene::CheckAllCollisions() {
 		// 球と球の交差判定
 		if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
 			// 敵キャラの衝突時コールバックを呼び出す
-			enemy_->IsFinished();
+			enemy_->OnCollision();
 			// 自弾の衝突時コールバックを呼び出す
 			bullet->OnCollision();
+			finished_ = true;
 		}
 	}
 #pragma endregion
