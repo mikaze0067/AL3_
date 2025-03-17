@@ -10,7 +10,10 @@
 #include <DebugCamera.h>
 #include <Player.h>
 #include "MathUtilityForText.h"
-
+#include "LightGroup.h" 
+#include <Blink.h>
+#include <Blink2.h>
+#include <Puchun.h>
 
 /// <summary>
 /// ゲームシーン
@@ -56,12 +59,21 @@ private: // メンバ変数
 	Audio* audio_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	uint32_t textureHandle2_ = 0;
+	uint32_t textureHandle3_ = 0;
+
 	//自キャラ
 	Player* player_ = nullptr;
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
 
 	DebugCamera* debugCamera_ = nullptr;
+
+	Blink* blink_ = nullptr; // ライトグループ
+
+	Blink2* blink2_ = nullptr; // ライトグループ
+
+	Puchun* puchun_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
