@@ -74,6 +74,8 @@ private: // メンバ変数
 	Blink2* blink2_ = nullptr; // ライトグループ
 
 	Puchun* puchun_ = nullptr;
+	uint32_t pichunSound_ = 0;
+
 
 	/// <summary>
 	/// ゲームシーン用

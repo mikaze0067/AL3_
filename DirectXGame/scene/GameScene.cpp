@@ -50,9 +50,8 @@ void GameScene::Initialize() {
 	blink2_ = new Blink2();
 	blink2_->Initialize(textureHandle3_, textureHandle2_);
 
-
 	puchun_ = new Puchun();
-	puchun_->Initialize(puchunTextures);
+	puchun_->Initialize(puchunTextures, audio_);
 
 	// 軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
