@@ -113,6 +113,8 @@
     <ClCompile Include="Blink.cpp" />
     <ClCompile Include="Blink2.cpp" />
     <ClCompile Include="Blink3.cpp" />
+    <ClCompile Include="coin.cpp" />
+    <ClCompile Include="CoinManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtilityForText.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -148,6 +150,8 @@
     <ClInclude Include="Blink.h" />
     <ClInclude Include="Blink2.h" />
     <ClInclude Include="Blink3.h" />
+    <ClInclude Include="coin.h" />
+    <ClInclude Include="CoinManager.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="MathUtilityForText.h" />
     <ClInclude Include="math\Matrix4x4.h" />

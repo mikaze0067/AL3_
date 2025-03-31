@@ -15,6 +15,7 @@ GameScene::~GameScene() {
 	delete blink_;
 	delete blink2_;
 	delete puchun_;
+	delete coinManager_;
 }
 
 void GameScene::Initialize() {
@@ -25,6 +26,7 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	textureHandle2_ = TextureManager::Load("White.png");
 	textureHandle3_ = TextureManager::Load("tyoiWhite.png");
+	//textureHandleCoin_ = TextureManager::Load(".png");
 	std::vector<uint32_t> puchunTextures =
 	{TextureManager::Load("Puchun/Puchun1.png"), TextureManager::Load("Puchun/Puchun2.png"), TextureManager::Load("Puchun/Puchun3.png"), TextureManager::Load("Puchun/Puchun4.png"),
 	 TextureManager::Load("Puchun/Puchun5.png"), TextureManager::Load("Puchun/Puchun6.png"), TextureManager::Load("Puchun/Puchun7.png")};
@@ -53,6 +55,11 @@ void GameScene::Initialize() {
 	puchun_ = new Puchun();
 	puchun_->Initialize(puchunTextures, audio_);
 
+	coinModel = Model::CreateFromOBJ("coin", true);
+	coinManager_ = new CoinManager();
+	coinManager_->Initialize(coinModel, textureHandle_, 10); // 10枚のコインを降らせる
+
+
 	// 軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	// 軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
@@ -66,6 +73,8 @@ void GameScene::Update() {
 	blink_->Update();
 	blink2_->Update();
 	puchun_->Update();
+
+	coinManager_->Update();
 
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
@@ -127,6 +136,8 @@ void GameScene::Draw() {
 
 	// 自キャラの描画
 	player_->Draw(viewProjection_);
+
+	coinManager_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

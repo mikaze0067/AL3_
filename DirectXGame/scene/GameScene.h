@@ -14,6 +14,7 @@
 #include <Blink.h>
 #include <Blink2.h>
 #include <Puchun.h>
+#include "CoinManager.h"
 
 /// <summary>
 /// ゲームシーン
@@ -61,6 +62,7 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0;
 	uint32_t textureHandle2_ = 0;
 	uint32_t textureHandle3_ = 0;
+	uint32_t textureHandleCoin_ = 0;
 
 	//自キャラ
 	Player* player_ = nullptr;
@@ -76,6 +78,8 @@ private: // メンバ変数
 	Puchun* puchun_ = nullptr;
 	uint32_t pichunSound_ = 0;
 
+	Model* coinModel = nullptr;
+	CoinManager* coinManager_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
