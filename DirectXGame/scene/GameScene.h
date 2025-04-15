@@ -10,6 +10,7 @@
 #include <DebugCamera.h>
 #include <Player.h>
 #include "MathUtilityForText.h"
+#include <Coin.h>
 
 
 /// <summary>
@@ -43,6 +44,10 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	void SpawnCoins(int count);
+
+
+
 	// 3Dモデル
 	Model* model_ = nullptr;
 	// ワールドトランスフォーム
@@ -56,12 +61,18 @@ private: // メンバ変数
 	Audio* audio_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	uint32_t textureHandleCoin_ = 0;
 	//自キャラ
 	Player* player_ = nullptr;
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
 
 	DebugCamera* debugCamera_ = nullptr;
+
+	Model* modelCoin_ = nullptr;
+	std::list<Coin*> coins_;
+
+	int score = 30;//仮
 
 	/// <summary>
 	/// ゲームシーン用

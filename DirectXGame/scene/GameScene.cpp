@@ -12,6 +12,10 @@ GameScene::~GameScene() {
 	delete model_;
 	delete player_;
 	delete debugCamera_;
+	for (Coin* coin : coins_) {
+		delete coin;
+	}
+	coins_.clear();
 }
 
 void GameScene::Initialize() {
@@ -37,6 +41,16 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
+	modelCoin_ = Model::CreateFromOBJ("medal", true);
+
+	for (int i = 0; i < 100; ++i) {
+		Coin* coin = new Coin();
+		coin->Initialize(modelCoin_, &viewProjection_);
+		coin->SetRandomBehavior(); // ランダム位置・回転・アニメーション
+		coins_.push_back(coin);
+	}
+
+
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
@@ -47,23 +61,24 @@ void GameScene::Update() {
 	//自キャラの更新
 	player_->Update();
 
+	for (auto it = coins_.begin(); it != coins_.end();) {
+		Coin* coin = *it;
+		coin->Update();
+
+		if (coin->IsDead()) {
+			delete coin;
+			it = coins_.erase(it); // リストから削除してイテレータ更新
+		} else {
+			++it;
+		}
+	}
+
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;
 	}
 	#endif
-	//カメラの処理
-	if (isDebugCameraActive_) {
-		// デバッグカメラの更新
-		debugCamera_->Update();
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		//ビュープロジェクション行列の転送
-		viewProjection_.TransferMatrix();
-	} else {
-		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
-	}
+	
 }
 
 void GameScene::Draw() {
@@ -98,7 +113,11 @@ void GameScene::Draw() {
 	/// </summary>
 
 	//自キャラの描画
-	player_->Draw(viewProjection_);
+	//player_->Draw(viewProjection_);
+
+	for (Coin* coin : coins_) {
+		coin->Draw();
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -117,4 +136,13 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::SpawnCoins(int count) {
+	for (int i = 0; i < count; ++i) {
+		Coin* coin = new Coin();
+		coin->Initialize(modelCoin_, &viewProjection_);
+		coin->SetRandomBehavior(); // ランダムな位置・回転・時間ずれ
+		coins_.push_back(coin);
+	}
 }
