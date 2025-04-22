@@ -40,7 +40,7 @@ private:
 	ViewProjection* viewProjection_;
 
 	Vector3 velocity_ = {0.0f, 0.0f, 0.0f}; // 初速度
-	float gravity_ = -0.04f; // 重力加速度（Y軸にマイナス）
+	float gravity_ = -0.015f; // 重力加速度（Y軸にマイナス）
 	float bounceFactor_ = 0.2f;             // 跳ね返り係数（反発の強さ）
 	bool grounded_ = false;                 // 地面に止まったかどうか
 

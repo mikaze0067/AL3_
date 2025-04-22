@@ -41,7 +41,7 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
-	modelCoin_ = Model::CreateFromOBJ("medal", true);
+	modelCoin_ = Model::CreateFromOBJ("coin", true);
 
 	for (int i = 0; i < 100; ++i) {
 		Coin* coin = new Coin();

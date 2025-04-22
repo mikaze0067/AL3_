@@ -33,9 +33,9 @@ void Coin::Update() {
 		worldTransform_.translation_.y += velocity_.y;
 
 		// 地面（Y=0）に当たったらバウンド処理
-		if (worldTransform_.translation_.y < 0.0f) {
+		if (worldTransform_.translation_.y < -15.0f) {
 			worldTransform_.translation_.y = 0.0f;
-			isDead_ = true; // 消えるフラグON！
+			isDead_ = true; // 消えるフラグON
 		}
 	}
 
