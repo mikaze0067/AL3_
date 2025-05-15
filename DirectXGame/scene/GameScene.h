@@ -10,6 +10,9 @@
 #include <DebugCamera.h>
 #include <Player.h>
 #include "MathUtilityForText.h"
+#include <LeftDoor.h>
+#include <Pachinko.h>
+#include <RightDoor.h>
 
 
 /// <summary>
@@ -62,6 +65,15 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 
 	DebugCamera* debugCamera_ = nullptr;
+
+	LeftDoor* leftDoor_ = nullptr;
+	Model* leftDoorModel_ = nullptr;
+
+	RightDoor* rightDoor_ = nullptr;
+	Model* rightDoorModel_ = nullptr;
+
+	Pachinko* pachinko_ = nullptr;
+	Model* pachinkoModel_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

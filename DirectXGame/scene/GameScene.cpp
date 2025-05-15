@@ -34,6 +34,22 @@ void GameScene::Initialize() {
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_);
 
+	leftDoorModel_ = Model::CreateFromOBJ("LeftDoor", true);
+	rightDoorModel_ = Model::CreateFromOBJ("RightDoor", true);
+
+
+	leftDoor_ = new LeftDoor();
+	leftDoor_->Initialize(leftDoorModel_, &viewProjection_);
+
+	rightDoor_ = new RightDoor();
+	rightDoor_->Initialize(rightDoorModel_, &viewProjection_);
+
+
+	pachinkoModel_ = Model::CreateFromOBJ("Pachinko", true);
+
+	pachinko_ = new Pachinko();
+	pachinko_->Initialize(pachinkoModel_, &viewProjection_);
+
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
@@ -46,6 +62,12 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 	//自キャラの更新
 	player_->Update();
+
+	leftDoor_->Update();
+
+	rightDoor_->Update();
+
+	pachinko_->Update();
 
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
@@ -98,7 +120,13 @@ void GameScene::Draw() {
 	/// </summary>
 
 	//自キャラの描画
-	player_->Draw(viewProjection_);
+	//player_->Draw(viewProjection_);
+
+	leftDoor_->Draw();
+	rightDoor_->Draw();
+
+
+	pachinko_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
