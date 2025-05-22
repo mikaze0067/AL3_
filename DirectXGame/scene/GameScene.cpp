@@ -39,16 +39,16 @@ void GameScene::Initialize() {
 
 
 	leftDoor_ = new LeftDoor();
-	leftDoor_->Initialize(leftDoorModel_, &viewProjection_);
+	leftDoor_->Initialize(leftDoorModel_, &viewProjection_, input_);
 
 	rightDoor_ = new RightDoor();
-	rightDoor_->Initialize(rightDoorModel_, &viewProjection_);
+	rightDoor_->Initialize(rightDoorModel_, &viewProjection_, input_);
 
 
 	pachinkoModel_ = Model::CreateFromOBJ("Pachinko", true);
 
 	pachinko_ = new Pachinko();
-	pachinko_->Initialize(pachinkoModel_, &viewProjection_);
+	pachinko_->Initialize(pachinkoModel_, &viewProjection_, input_);
 
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
