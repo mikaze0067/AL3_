@@ -4,13 +4,14 @@
 
 static float easeOutQuad(float x) { return 1 - (1 - x) * (1 - x); }
 
-void RightDoor::Initialize(Model* model, ViewProjection* viewProjection, Input* input) {
+void RightDoor::Initialize(Model* model, ViewProjection* viewProjection) {
+	input_ = Input::GetInstance();
+
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
 
 	model_ = model;
 	viewProjection_ = viewProjection;
-	input_ = input; // ←追加
 
 	worldTransform_.scale_ = {
 	    2.5f,

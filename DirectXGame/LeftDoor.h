@@ -13,7 +13,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, ViewProjection* viewProjection, Input* input);
+	void Initialize(Model* model, ViewProjection* viewProjection);
 
 	/// <summary>
 	/// 毎フレーム処理
