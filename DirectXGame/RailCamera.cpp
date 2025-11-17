@@ -52,5 +52,5 @@ void RailCamera::Update() {
     // ワールドトランスフォームのワールド行列再計算
     worldTransform_.UpdateMatrix();
 	//カメラオブジェクトのワールド行列からビュー行列を計算する
-	viewProjection_.matView = Inverse(worldTransform_.matWorld_);
+	//viewProjection_.matView = Inverse(worldTransform_.matWorld_);
 }
